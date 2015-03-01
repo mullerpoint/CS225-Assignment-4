@@ -1,10 +1,16 @@
 //
 //Media Item Class declaration
 //
-#ifndef MEDIAITEMS_CLASS_DEF_H
-#define MEDIAITEMS_CLASS_DEF_H
+#ifndef MEDIAITEMS_CLASS_DEF_H_
+#define MEDIAITEMS_CLASS_DEF_H_
 
 #define DEF_ELEMENTS 15
+
+#ifndef MEDIA_DEPENDENCIES_H_
+#define MEDIA_DEPENDENCIES_H_
+#include "Author.hpp"
+#include "Elements.hpp"
+#endif
 
 class MediaItems
 {
@@ -36,6 +42,10 @@ public:
 
 	//Accessors
 	std::string getName();
+	int getPubYear();
+	bool getPubYearDef();
+	Author* getAuthor();
+	double getPrice();
 	int toCout();
 
 	//Predicate Functions

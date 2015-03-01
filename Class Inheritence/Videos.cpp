@@ -6,18 +6,29 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef VIDEOS_CLASS_IMPL_H_
+#define VIDEOS_CLASS_IMPL_H_
 
-#include <iostream>
-#include <string>
+#ifndef MEDIA_DEPENDENCIES_CORE_H_
+#define MEDIA_DEPENDENCIES_CORE_H_
+#include <iostream> //default include
+#include <string> // included to get strings to work
+#include <locale> // included to get locale info for output
+#include <io.h> // isatty for windows
+//#include <unistd.h> // isatty  for linux
+#include <iomanip> // included to make pretty output
+#endif
+
 #include "Videos.hpp"
 
 #define DEF_DIRECTOR ""
 #define DEF_RUNTIME 0.0
+#define TEXT_WIDTH 20
 
 Videos::Videos()
 {
 	MediaItems::MediaItems();
-	
+
 	Videos::setDirector(DEF_DIRECTOR);
 	Videos::setRunTime(DEF_RUNTIME);
 	Videos::setSequel(NULL);
@@ -61,6 +72,25 @@ int Videos::setSequel(Videos* new_sequel)
 {
 	Videos::sequel_ptr = new_sequel;
 	MediaItems::modified(true);
+	return 0;
+}
+
+//get director
+std::string Videos::getDirector()
+{
+	return director;
+}
+
+//get run time
+double Videos::getRunTime()
+{
+	return runTime;
+}
+
+//get sequel pointer
+Videos* Videos::getSequel()
+{
+	return sequel_ptr;
 }
 
 //return the number of constructed items
@@ -68,3 +98,30 @@ int Videos::in_mem()
 {
 	return active;
 }
+
+//std::ostream& operator<<(std::ostream &out, Videos &Video)
+//{
+//	out << Videos::element[1];
+//
+//
+//	if (Video.getDirector() == DEF_DIRECTOR);
+//	else
+//	{
+//		out << std::left << std::setw(TEXT_WIDTH) << "  Director" << " : " << Video.getDirector;
+//	}
+//	if (Video.getRunTime == DEF_RUNTIME);
+//	else
+//	{
+//		out << std::left << std::setw(TEXT_WIDTH) << "  RunTime" << " : " << Video.getRunTime;
+//	}
+//	if (Video.getSequel == NULL);
+//	else
+//	{
+//		out << std::left << std::setw(TEXT_WIDTH) << "  Sequel" << " : " << (*(Video.getSequel)).getName;
+//	}
+//
+//
+//	return out;
+//}
+
+#endif

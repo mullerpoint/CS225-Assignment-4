@@ -6,14 +6,25 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef MUSIC_CLASS_IMPL_H_
+#define MUSIC_CLASS_IMPL_H_
 
-#include <iostream>
-#include <string>
+#ifndef MEDIA_DEPENDENCIES_CORE_H_
+#define MEDIA_DEPENDENCIES_CORE_H_
+#include <iostream> //default include
+#include <string> // included to get strings to work
+#include <locale> // included to get locale info for output
+#include <io.h> // isatty for windows
+//#include <unistd.h> // isatty  for linux
+#include <iomanip> // included to make pretty output
+#endif
+
 #include "Music.hpp"
 
 #define DEF_PRODUCER ""
 #define DEF_MIN 0.0
 #define DEF_GENRE Genre::DEF
+#define TEXT_WIDTH 20
 
 Music::Music()
 {
@@ -60,6 +71,7 @@ int Music::setMinutes(double new_Minutes)
 int Music::setGenre(Genre new_genre)
 {
 	Music::musicGenre = new_genre;
+	return 0;
 }
 
 //return the number of constructed items
@@ -67,3 +79,5 @@ int Music::in_mem()
 {
 	return active;
 }
+
+#endif

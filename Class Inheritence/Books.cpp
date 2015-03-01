@@ -6,15 +6,25 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef BOOKS_CLASS_IMPL_H_
+#define BOOKS_CLASS_IMPL_H_
 
-#include <iostream>
-#include <string>
-#include "Author.hpp"
+#ifndef MEDIA_DEPENDENCIES_CORE_H_
+#define MEDIA_DEPENDENCIES_CORE_H_
+#include <iostream> //default include
+#include <string> // included to get strings to work
+#include <locale> // included to get locale info for output
+#include <io.h> // isatty for windows
+//#include <unistd.h> // isatty  for linux
+#include <iomanip> // included to make pretty output
+#endif
+
 #include "Books.hpp"
 
 #define DEF_PAGES 0
 #define DEF_PUB 1970
 #define DEF_ISBN ""
+#define TEXT_WIDTH 20
 
 Books::Books()
 {
@@ -88,3 +98,5 @@ int Books::in_mem()
 {
 	return active;
 }
+
+#endif

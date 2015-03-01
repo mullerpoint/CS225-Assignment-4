@@ -78,7 +78,6 @@
     <ClInclude Include="Elements.hpp" />
     <ClInclude Include="MediaItems.hpp" />
     <ClInclude Include="Music.hpp" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Videos.hpp" />
   </ItemGroup>
   <ItemGroup>

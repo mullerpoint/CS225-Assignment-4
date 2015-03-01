@@ -2,6 +2,9 @@
 //Author Class declaration
 //
 
+#ifndef AUTHOR_CLASS_DEF_H_
+#define AUTHOR_CLASS_DEF_H_
+
 class Author
 {
 private:
@@ -28,3 +31,5 @@ public:
 	friend std::ostream& operator<<(std::ostream &out, Author &Auth);
 	friend std::istream& operator>>(std::istream &in, Author &Auth);
 };
+
+#endif

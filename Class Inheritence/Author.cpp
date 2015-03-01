@@ -6,6 +6,9 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef AUTHOR_CLASS_IMPL_H_
+#define AUTHOR_CLASS_IMPL_H_
+
 //Header Files
 #include <iostream>
 #include <string>
@@ -143,3 +146,5 @@ std::istream& operator>>(std::istream &in, Author &Auth)
 
 	return in;
 }
+
+#endif

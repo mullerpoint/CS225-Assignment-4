@@ -6,6 +6,9 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef ELEMENTS_CLASS_IMPL_H_
+#define ELEMENTS_CLASS_IMPL_H_
+
 //Header Files
 #include <iostream>
 #include <string>
@@ -149,3 +152,5 @@ std::ostream& operator<<(std::ostream &out, Elements &Elem)
 
 	return out;
 }
+
+#endif

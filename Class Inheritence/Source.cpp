@@ -7,12 +7,15 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Header files standard libraries and classes
+#ifndef MEDIA_DEPENDENCIES_CORE_H_
+#define MEDIA_DEPENDENCIES_CORE_H_
 #include <iostream> //default include
 #include <string> // included to get strings to work
 #include <locale> // included to get locale info for output
 #include <io.h> // isatty for windows
 //#include <unistd.h> // isatty  for linux
 #include <iomanip> // included to make pretty output
+#endif
 
 //User Defined Class Includes
 #include "Author.hpp"
@@ -294,11 +297,14 @@ void process_menu_in(char inchar)
 	// enter item page count menu option
 	case 'P':
 	{
-		int new_pages;
-		std::cout << "Enter Media Item Pages : ";
-		std::cin >> new_pages;
-		(*mixed_array[ItemNum]).setPages(new_pages); //no problem with compiler
-		std::cin.ignore(10000, '\n');
+		if (typeid((*mixed_array[ItemNum])) == typeid(Books))
+		{
+			int new_pages;
+			std::cout << "Enter Media Item Pages : ";
+			std::cin >> new_pages;
+			(*mixed_array[ItemNum]).setPages(new_pages);
+			std::cin.ignore(10000, '\n');
+		}
 	}
 	break;
 
@@ -311,7 +317,7 @@ void process_menu_in(char inchar)
 			std::cout << "Is the book still in print (0/1) : ";
 			std::cin >> printStatus;
 			std::cin.ignore(10000, '\n');
-			(*mixed_array[ItemNum]).setInPrint(printStatus); //no problem with compiler
+			(*mixed_array[ItemNum]).setInPrint(printStatus); 
 		}
 
 	}
@@ -395,7 +401,7 @@ void process_menu_in(char inchar)
 		std::cout << "Enter Sequel index number : ";
 		std::cin >> temp_num;
 		std::cin.ignore(1, '\n');
-		(*mixed_array[ItemNum]).setSequel(&mixed_array[temp_num]); //no problem with compiler
+		(*mixed_array[ItemNum]).setSequel(&mixed_array[temp_num]);
 	}
 	break;
 

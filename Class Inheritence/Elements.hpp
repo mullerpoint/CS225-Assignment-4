@@ -2,6 +2,9 @@
 //Elements Class declaration
 //
 
+#ifndef ELEMENTS_CLASS_DEF_H_
+#define ELEMENTS_CLASS_DEF_H_
+
 class Elements
 {
 private:
@@ -26,3 +29,5 @@ public:
 
 	friend std::ostream& operator<<(std::ostream &out, Elements &Elem);
 };
+
+#endif

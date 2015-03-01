@@ -2,6 +2,9 @@
 //Music Class declaration
 //
 
+#ifndef MUSIC_CLASS_DEF_H_
+#define MUSIC_CLASS_DEF_H_
+
 #include "MediaItems.hpp"
 class Music :
 	public MediaItems
@@ -28,10 +31,13 @@ public:
 	Music();
 	~Music();
 
+	//mutators
 	int setProducer(std::string);
 	int setMinutes(double);
 	int setGenre(Genre);
 
+	//predicate
 	int in_mem();
 };
 
+#endif

@@ -2,6 +2,8 @@
 //Book Class declaration
 //
 
+#ifndef BOOKS_CLASS_DEF_H_
+#define BOOKS_CLASS_DEF_H_
 
 #include "MediaItems.hpp"
 class Books :
@@ -20,11 +22,14 @@ public:
 	Books();
 	~Books();
 
+	//mutators
 	int setPages(int);
 	int setInPrint(bool);
 	int setSequel(Books*);
 	int setISBN(std::string);
 
+	//predicate
 	int in_mem();
 };
 
+#endif

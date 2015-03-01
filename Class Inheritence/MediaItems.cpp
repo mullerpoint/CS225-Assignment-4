@@ -6,14 +6,24 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#ifndef MEDIAITEMS_CLASS_IMPL_H
-#define MEDIAITEMS_CLASS_IMPL_H
+#ifndef MEDIAITEMS_CLASS_IMPL_H_
+#define MEDIAITEMS_CLASS_IMPL_H_
 
-#include <iostream>
-#include <string>
-#include <iomanip>
+#ifndef MEDIA_DEPENDENCIES_CORE_H_
+#define MEDIA_DEPENDENCIES_CORE_H_
+#include <iostream> //default include
+#include <string> // included to get strings to work
+#include <locale> // included to get locale info for output
+#include <io.h> // isatty for windows
+//#include <unistd.h> // isatty  for linux
+#include <iomanip> // included to make pretty output
+#endif
+
+#ifndef MEDIA_DEPENDENCIES_H_
+#define MEDIA_DEPENDENCIES_H_
 #include "Author.hpp"
 #include "Elements.hpp"
+#endif
 
 #include "MediaItems.hpp"
 
@@ -152,6 +162,35 @@ int MediaItems::toCout()
 	return 0;
 }
 
+//get book title
+std::string MediaItems::getName()
+{
+	return MediaItems::name;
+}
+
+//get pulication year
+int MediaItems::getPubYear()
+{
+	return pub_year;
+}
+
+// get if the publication year is default
+bool MediaItems::getPubYearDef()
+{
+	return pub_year_def;
+}
+
+//get author pointer
+Author* MediaItems::getAuthor()
+{
+	return auth_ptr;
+}
+
+//get price of item
+double MediaItems::getPrice()
+{
+	return price;
+}
 
 //returns if the item is empty
 bool MediaItems::isEmpty()
@@ -170,12 +209,6 @@ int MediaItems::modified(bool data)
 int MediaItems::in_mem()
 {
 	return active;
-}
-
-//get book title
-std::string MediaItems::getName()
-{
-	return MediaItems::name;
 }
 
 #endif

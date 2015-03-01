@@ -6,12 +6,15 @@
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+#ifndef MEDIAITEMS_CLASS_IMPL_H
+#define MEDIAITEMS_CLASS_IMPL_H
 
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include "Elements.hpp"
 #include "Author.hpp"
+#include "Elements.hpp"
+
 #include "MediaItems.hpp"
 
 #define DEF_NAME ""
@@ -32,6 +35,8 @@ MediaItems::MediaItems()
 	pub_year_def = true;
 
 	element_num = ELEMENT_ZERO;
+
+	setAuthor(NULL);
 
 	hasData = false;
 
@@ -96,6 +101,15 @@ int MediaItems::setElement(int start, int end, std::string name, int elementNum)
 	return 0;
 }
 
+//set author
+int MediaItems::setAuthor(Author* new_author)
+{
+	MediaItems::auth_ptr = new_author;
+	MediaItems::modified(true);
+	return 0;
+}
+
+//print out item
 int MediaItems::toCout()
 {
 	//check if the item is empty
@@ -135,6 +149,7 @@ int MediaItems::toCout()
 			}
 		}
 	}
+	return 0;
 }
 
 
@@ -162,3 +177,5 @@ std::string MediaItems::getName()
 {
 	return MediaItems::name;
 }
+
+#endif

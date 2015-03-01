@@ -23,9 +23,9 @@
 #include "Videos.hpp"
 
 
-
 //Gloabal Variables and Defines
-#define OBJS_MI 30 //number of Media Items
+#define OBJS_MI 80 //number of Media Items
+#define PER_GROUP 20
 #define OBJS_AUTH 8 //number of Authors
 #define TEXT_WIDTH 20
 bool done = false;
@@ -35,8 +35,8 @@ int interactive = _isatty(_fileno(stdin)); //windowns statement
 //int interactive = isatty(STDIN_FILENO); //unix statement
 
 //define global pointers for media item objects
-MediaItems* Items_ptr;
-int* ItemNum_ptr;
+MediaItems* mixed_array[OBJS_MI];
+int ItemNum = 0;
 //
 
 //define global pointers for author objects
@@ -49,8 +49,11 @@ std::locale* locale;
 //
 
 //Function Prototypes
+int init_mixed_array();
 void process_menu_in(char);
 void print_menu();
+void print_Authors();
+void print_MediaItems();
 //
 
 
@@ -61,21 +64,17 @@ void print_menu();
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int main()
 {
-	//Create an array, of size OBJS_MI, of media items for filling with data
+	//Create an array, of size OBJS_AUTH of author items for filling with data
 	//useing the global pointer we can use the item specified with 
-	MediaItems Items[OBJS_MI];
-	Items_ptr = &Items[0];
-	int itemNum = 0;
-	ItemNum_ptr = &itemNum;
-
 	int AuthNum = 0;
 	AuthNum_ptr = &AuthNum;
 	Author Authors[OBJS_AUTH];
 	Auth_ptr = &Authors[*AuthNum_ptr];
 
+	//create array of items
+	init_mixed_array();
 
-
-	//determine if interactive or scripted
+	mixed_array[ItemNum];
 
 
 	//use the imbue functionality to make the output look pretty
@@ -92,7 +91,7 @@ int main()
 	{
 		while (!done)
 		{
-			std::cout << std::endl << "Menu [" << *ItemNum_ptr << "]: ";
+			std::cout << std::endl << "Menu [" << ItemNum << "]: ";
 			std::getline(std::cin, menu_in);
 			process_menu_in(menu_in[0]);
 		}
@@ -101,7 +100,7 @@ int main()
 	{
 		while (!done)
 		{
-			std::cout << std::endl << "Menu [" << *ItemNum_ptr << "]: ";
+			std::cout << std::endl << "Menu [" << ItemNum << "]: ";
 			std::cin >> menu_in;
 			process_menu_in(menu_in[0]);
 		}
@@ -160,35 +159,35 @@ void process_menu_in(char inchar)
 		count = 0;
 		while (count <= (OBJS_MI - 1))
 		{
-			if (!Items_ptr[count].isEmpty());
+			if (!(*mixed_array[count]).isEmpty());
 			//isempty() returns the hasData value which is false for an object with no data and true for an object with data, hence the ! to invert the return value
-			else //if (Items_ptr[count].isEmpty() == true)
+			else //if (mixed_array[count].isEmpty() == true)
 			{
 				std::cout << std::endl << "Item [" << count << "]" << std::endl;
-				Items_ptr[count].toCout();
+				(*mixed_array[count]).toCout();
 			}
 			count++;
 		}
 
-		std::cout << std::endl << std::endl << std::left << std::setw(TEXT_WIDTH) << "  Items in Memory" << " : " << Items_ptr[0].in_mem() << std::endl
-			<< std::left << std::setw(TEXT_WIDTH) << "    Memory Used" << " : " << sizeof(MediaItems)*Items_ptr[0].in_mem() << " Bytes";
+		std::cout << std::endl << std::endl << std::left << std::setw(TEXT_WIDTH) << "  Items in Memory" << " : " << (*mixed_array[0]).in_mem() << std::endl
+			<< std::left << std::setw(TEXT_WIDTH) << "    Memory Used" << " : " << sizeof(MediaItems)*(*mixed_array[0]).in_mem() << " Bytes";
 
 		std::cout << std::endl << "====== All Items End ======" << std::endl;
 
-		std::cout << std::endl << std::left << std::setw(TEXT_WIDTH) << "  Total Memory Used" << " : " << (sizeof(MediaItems)*Items_ptr[0].in_mem()) + (sizeof(Author)*Auth_ptr[0].in_mem()) << " Bytes";
+		std::cout << std::endl << std::left << std::setw(TEXT_WIDTH) << "  Total Memory Used" << " : " << (sizeof(MediaItems)*(*mixed_array[0]).in_mem()) + (sizeof(Author)*Auth_ptr[0].in_mem()) << " Bytes";
 	}
 	break;
 
 	//increase item number by 1
 	case '+':
 	{
-		if (*ItemNum_ptr < (OBJS_MI - 1))
+		if (ItemNum < (OBJS_MI - 1))
 		{
-			*ItemNum_ptr = *ItemNum_ptr + 1;
+			ItemNum = ItemNum + 1;
 		}
-		else if (*ItemNum_ptr >= (OBJS_MI - 1))
+		else if (ItemNum >= (OBJS_MI - 1))
 		{
-			*ItemNum_ptr = (OBJS_MI - 1);
+			ItemNum = (OBJS_MI - 1);
 		}
 		std::cout << std::endl;
 	}
@@ -197,13 +196,13 @@ void process_menu_in(char inchar)
 	//decrease item number by 1
 	case '-':
 	{
-		if (*ItemNum_ptr > 0)
+		if (ItemNum > 0)
 		{
-			*ItemNum_ptr = *ItemNum_ptr - 1;
+			ItemNum = ItemNum - 1;
 		}
-		else if (*ItemNum_ptr <= 0)
+		else if (ItemNum <= 0)
 		{
-			*ItemNum_ptr = 0;
+			ItemNum = 0;
 		}
 		std::cout << std::endl;
 	}
@@ -220,7 +219,7 @@ void process_menu_in(char inchar)
 		//validate input
 		if ((new_itemNum >= 0) && (new_itemNum <= (OBJS_MI - 1)))
 		{
-			*ItemNum_ptr = new_itemNum;
+			ItemNum = new_itemNum;
 		}
 		else{
 			std::cout << "Please enter a valid number beteen 0-" << OBJS_MI;
@@ -235,15 +234,15 @@ void process_menu_in(char inchar)
 	// clear item menu option
 	case '0':
 	{
-		Items_ptr[*ItemNum_ptr] = MediaItems();
+		//(*mixed_array[ItemNum]) = (*mixed_array[ItemNum])();
 	}
 	break;
 
 	// display item menu option
 	case 'D':
 	{
-		std::cout << std::endl << "Item [" << *ItemNum_ptr << "] :" << std::endl;
-		Items_ptr[*ItemNum_ptr].toCout();
+		std::cout << std::endl << "Item [" << ItemNum << "] :" << std::endl;
+		(*mixed_array[ItemNum]).toCout();
 	}
 	break;
 
@@ -253,7 +252,7 @@ void process_menu_in(char inchar)
 		std::string new_name;
 		std::cout << "Enter Media Item Title : ";
 		std::getline(std::cin, new_name);
-		Items_ptr[*ItemNum_ptr].setName(new_name);
+		(*mixed_array[ItemNum]).setName(new_name);
 	}
 	break;
 
@@ -298,7 +297,7 @@ void process_menu_in(char inchar)
 		int new_pages;
 		std::cout << "Enter Media Item Pages : ";
 		std::cin >> new_pages;
-		Items_ptr[*ItemNum_ptr].setPages(new_pages);
+		(*mixed_array[ItemNum]).setPages(new_pages); //no problem with compiler
 		std::cin.ignore(10000, '\n');
 	}
 	break;
@@ -306,11 +305,15 @@ void process_menu_in(char inchar)
 	// set the item in print status
 	case 'I':
 	{
-		bool printStatus;
-		std::cout << "Is the book still in print (0/1) : ";
-		std::cin >> printStatus;
-		std::cin.ignore(10000, '\n');
-		Items_ptr[*ItemNum_ptr].setInPrint(printStatus);
+		if (typeid(*mixed_array[ItemNum]) == typeid(Books))
+		{
+			bool printStatus;
+			std::cout << "Is the book still in print (0/1) : ";
+			std::cin >> printStatus;
+			std::cin.ignore(10000, '\n');
+			(*mixed_array[ItemNum]).setInPrint(printStatus); //no problem with compiler
+		}
+
 	}
 	break;
 
@@ -321,7 +324,7 @@ void process_menu_in(char inchar)
 		std::cout << "Enter Media Item value : ";
 		std::cin >> new_price;
 		std::cin.ignore(10000, '\n');
-		Items_ptr[*ItemNum_ptr].setPrice(new_price);
+		(*mixed_array[ItemNum]).setPrice(new_price);
 	}
 	break;
 
@@ -332,7 +335,7 @@ void process_menu_in(char inchar)
 		std::cout << "Enter Media Item publication year : ";
 		std::cin >> new_year;
 		std::cin.ignore(10000, '\n');
-		Items_ptr[*ItemNum_ptr].setPubYear(new_year);
+		(*mixed_array[ItemNum]).setPubYear(new_year);
 	}
 	break;
 
@@ -369,7 +372,7 @@ void process_menu_in(char inchar)
 		}
 
 
-		Items_ptr[*ItemNum_ptr].setElement(start, end, name, num = 0);
+		(*mixed_array[ItemNum]).setElement(start, end, name, num = 0);
 
 	}
 	break;
@@ -381,7 +384,7 @@ void process_menu_in(char inchar)
 		std::cout << "Enter Author index number : ";
 		std::cin >> temp_num;
 		std::cin.ignore(1, '\n');
-		Items_ptr[*ItemNum_ptr].setAuthor(&Auth_ptr[temp_num]);
+		(*mixed_array[ItemNum]).setAuthor(&Auth_ptr[temp_num]);
 	}
 	break;
 
@@ -392,7 +395,7 @@ void process_menu_in(char inchar)
 		std::cout << "Enter Sequel index number : ";
 		std::cin >> temp_num;
 		std::cin.ignore(1, '\n');
-		Items_ptr[*ItemNum_ptr].setSequel(&Items_ptr[temp_num]);
+		(*mixed_array[ItemNum]).setSequel(&mixed_array[temp_num]); //no problem with compiler
 	}
 	break;
 
@@ -411,13 +414,13 @@ void process_menu_in(char inchar)
 	{
 		std::cout
 			<< std::left << std::setw(28) << "Memory Used for Authors" << " : " << sizeof(Author)*Auth_ptr[0].in_mem() << " Bytes"
-			<< std::endl << std::left << std::setw(28) << "Memory Used for Media Items" << " : " << sizeof(MediaItems)*Items_ptr[0].in_mem() << " Bytes"
-			<< std::endl << std::left << std::setw(28) << "Memory Used for Book Items" << " : " << sizeof(Books)*Items_ptr[0].in_mem() << " Bytes"
-			<< std::endl << std::left << std::setw(28) << "Memory Used for Music Items" << " : " << sizeof(Music)*Items_ptr[0].in_mem() << " Bytes"
-			<< std::endl << std::left << std::setw(28) << "Memory Used for Video Items" << " : " << sizeof(Videos)*Items_ptr[0].in_mem() << " Bytes"
-			<< std::endl << std::left << std::setw(28) << "  Total Memory Used" << " : " << 
-			(sizeof(MediaItems)*Items_ptr[0].in_mem()) + (sizeof(Author)*Auth_ptr[0].in_mem() + 
-			sizeof(Books)*Items_ptr[0].in_mem() + sizeof(Music)*Items_ptr[0].in_mem() + sizeof(Videos)*Items_ptr[0].in_mem()) << " Bytes";
+			<< std::endl << std::left << std::setw(28) << "Memory Used for Media Items" << " : " << sizeof(MediaItems)*(*mixed_array[60]).in_mem() << " Bytes"
+			<< std::endl << std::left << std::setw(28) << "Memory Used for Book Items" << " : " << sizeof(Books)*(*mixed_array[0]).in_mem() << " Bytes"
+			<< std::endl << std::left << std::setw(28) << "Memory Used for Music Items" << " : " << sizeof(Music)*(*mixed_array[20]).in_mem() << " Bytes"
+			<< std::endl << std::left << std::setw(28) << "Memory Used for Video Items" << " : " << sizeof(Videos)*(*mixed_array[60]).in_mem() << " Bytes"
+			<< std::endl << std::left << std::setw(28) << "  Total Memory Used" << " : " <<
+			(sizeof(MediaItems)*(*mixed_array[60]).in_mem()) + (sizeof(Author)*Auth_ptr[0].in_mem() +
+			sizeof(Books)*(*mixed_array[0]).in_mem() + sizeof(Music)*(*mixed_array[20]).in_mem() + sizeof(Videos)*(*mixed_array[40]).in_mem()) << " Bytes";
 
 	}
 	break;
@@ -433,19 +436,62 @@ void process_menu_in(char inchar)
 void print_menu()
 {
 	std::cout << std::endl
-		<< "* - Display all media items data" << std::endl
-		<< "+/- increment / decrement the select item w/in the Array" << std::endl
-		<< "# - set the selected media item" << std::endl
-		<< "0 - Clear Media Item Data" << std::endl
-		<< "C - Create New Author Item" << std::endl
-		<< "D - Display Media Item Data" << std::endl
-		<< "N - Set Media Item Name" << std::endl
-		<< "T - Set Author Index Number" << std::endl
-		<< "E - Add Media Item Element" << std::endl
-		<< "P - Set Media Item Pages" << std::endl
-		<< "I - set in print status" << std::endl
-		<< "V - set item Value/Price" << std::endl
-		<< "Y - set Year Produced" << std::endl
-		<< "M - Print this Menu" << std::endl
-		<< "Q - Quit this program" << std::endl << std::endl;
+		<< "0 - 19 : Books" << std::endl
+		<< "20 - 39 : Music" << std::endl
+		<< "40 - 59 : Videos" << std::endl
+		<< "60 - 79 : Media Items" << std::endl
+		<< "*-Display data for all Media Items" << std::endl
+		<< "+/ -Increment / Decrement the selected Item w / in Array" << std::endl
+		<< "# Set the selected Media Item" << std::endl
+		<< "0 - Clear selected Media Item data" << std::endl
+		<< "B - set Media Item duration / time" << std::endl
+		<< "C - Create author" << std::endl
+		<< "D - Display selected Media Item data" << std::endl
+		<< "E - Add Media Item element" << std::endl
+		<< "F - Set Music / Video Producer / Director respectively" << std::endl
+		<< "J - Set Book ISBN" << std::endl
+		<< "K - set Music Genre" << std::endl
+		<< "L - Display Music Items by Genre" << std::endl
+		<< "M - Print this menu" << std::endl
+		<< "N - Set Media Item name" << std::endl
+		<< "Q - Quit this program" << std::endl
+		<< "P - Set Media Item pages" << std::endl
+		<< "R - Display program memory usage" << std::endl
+		<< "S - Set Media Item Sequel from Index" << std::endl
+		<< "T - Set Media Item Author Index" << std::endl
+		<< "I - Set Media Item In Print Status(0 / 1)" << std::endl
+		<< "V - Set Media Item Value" << std::endl
+		<< "Y - Set Media Item Year Produced" << std::endl << std::endl;
+}
+
+int init_mixed_array()
+{
+	for (int i = 0; i < OBJS_MI; i++)
+	{
+		int type = (i / (PER_GROUP));
+		//-------
+		switch (type)
+		{
+		case 0:
+			mixed_array[i] = new Books();
+			break;
+
+		case 1:
+			mixed_array[i] = new Music();
+			break;
+
+		case 2:
+			mixed_array[i] = new Videos();
+			break;
+
+		case 3:
+			mixed_array[i] = new MediaItems();
+			break;
+
+		default:
+			std::cout << "ERROR : in array initialize" << std::endl;
+			return -1;
+		}
+	}
+	return 0;
 }

@@ -1,6 +1,8 @@
 //
 //Media Item Class declaration
 //
+#ifndef MEDIAITEMS_CLASS_DEF_H
+#define MEDIAITEMS_CLASS_DEF_H
 
 #define DEF_ELEMENTS 15
 
@@ -11,6 +13,7 @@ protected:
 	std::string name;
 	int pub_year;
 	bool pub_year_def;
+	Author* auth_ptr;
 
 	double price;
 
@@ -29,6 +32,7 @@ public:
 	int setPubYear(int);
 	int setPrice(double);
 	int setElement(int, int, std::string, int);
+	int setAuthor(Author*);
 
 	//Accessors
 	std::string getName();
@@ -40,3 +44,4 @@ public:
 	int in_mem();
 };
 
+#endif

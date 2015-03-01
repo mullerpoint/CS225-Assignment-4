@@ -27,8 +27,6 @@ Books::Books()
 
 	setSequel(NULL);
 
-	setAuthor(NULL);
-
 	setISBN(DEF_ISBN);
 
 	MediaItems::modified(false);
@@ -76,13 +74,7 @@ int Books::setSequel(Books* new_sequel)
 	return 0;
 }
 
-//set book author
-int Books::setAuthor(Author* new_author)
-{
-	Books::auth_ptr = new_author;
-	MediaItems::modified(true);
-	return 0;
-}
+
 
 int Books::setISBN(std::string new_isbn)
 {

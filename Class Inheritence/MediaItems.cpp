@@ -14,8 +14,8 @@
 #include <iostream> //default include
 #include <string> // included to get strings to work
 #include <locale> // included to get locale info for output
-#include <io.h> // isatty for windows
-//#include <unistd.h> // isatty  for linux
+//#include <io.h> // isatty for windows
+#include <unistd.h> // isatty  for linux
 #include <iomanip> // included to make pretty output
 #include <typeinfo>
 #endif
@@ -229,8 +229,8 @@ std::ostream& operator<<(std::ostream &out, MediaItems &MI)
 	else if (MI.isEmpty() == false) //if not empty print data thats available
 	{
 		// display item name if present
-		if (MI.getName == DEF_NAME);
-		else if (MI.getName != DEF_NAME)
+		if (MI.getName() == DEF_NAME);
+		else if (MI.getName() != DEF_NAME)
 		{
 			out << std::left << std::setw(TEXT_WIDTH) << "Media Item" << " : " << MI.getName() << std::endl;
 		}
@@ -243,18 +243,18 @@ std::ostream& operator<<(std::ostream &out, MediaItems &MI)
 		}
 
 		//display price if set
-		if (MI.getPrice == DEF_PRICE);
-		else if (MI.getPrice != DEF_PRICE)
+		if (MI.getPrice() == DEF_PRICE);
+		else if (MI.getPrice() != DEF_PRICE)
 		{
 			out << std::left << std::setw(TEXT_WIDTH) << "  Price" << " : $" << std::fixed << MI.getPrice() << std::endl;
 		}
 
 		//display elements if they exist; 
-		if ((*MI.getElements(0)).isEmpty == true);
-		else if ((*MI.getElements(0)).isEmpty == false)
+		if ((*MI.getElements(0)).isEmpty() == true);
+		else if ((*MI.getElements(0)).isEmpty() == false)
 		{
 			int count = 0;
-			while ((*MI.getElements(count)).isEmpty == false)
+			while ((*MI.getElements(count)).isEmpty() == false)
 			{
 				out << (*MI.getElements(count));
 				count++;

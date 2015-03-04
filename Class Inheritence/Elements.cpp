@@ -104,7 +104,7 @@ void Elements::setName(std::string new_name)
 //Object empty check
 bool Elements::isEmpty()
 {
-	return hasData;
+	return !hasData;
 }
 
 //set element as modified/unmodified

@@ -15,6 +15,7 @@
 #include <io.h> // isatty for windows
 //#include <unistd.h> // isatty  for linux
 #include <iomanip> // included to make pretty output
+#include <typeinfo>
 #endif
 
 //User Defined Class Includes
@@ -299,10 +300,12 @@ void process_menu_in(char inchar)
 	{
 		if (typeid((*mixed_array[ItemNum])) == typeid(Books))
 		{
+			Books* book_ptr = (Books*)&mixed_array[ItemNum];
+			
 			int new_pages;
 			std::cout << "Enter Media Item Pages : ";
 			std::cin >> new_pages;
-			(*mixed_array[ItemNum]).setPages(new_pages);
+			(*book_ptr).setPages(new_pages);
 			std::cin.ignore(10000, '\n');
 		}
 	}
@@ -313,11 +316,13 @@ void process_menu_in(char inchar)
 	{
 		if (typeid(*mixed_array[ItemNum]) == typeid(Books))
 		{
+			Books* book_ptr = (Books*)&mixed_array[ItemNum];
+
 			bool printStatus;
 			std::cout << "Is the book still in print (0/1) : ";
 			std::cin >> printStatus;
 			std::cin.ignore(10000, '\n');
-			(*mixed_array[ItemNum]).setInPrint(printStatus); 
+			(*book_ptr).setInPrint(printStatus); 
 		}
 
 	}
@@ -397,11 +402,16 @@ void process_menu_in(char inchar)
 	//Set Sequel index
 	case 'S':
 	{
+		Books* book_ptr = (Books*)&mixed_array[ItemNum];
+
 		int temp_num;
 		std::cout << "Enter Sequel index number : ";
 		std::cin >> temp_num;
 		std::cin.ignore(1, '\n');
-		(*mixed_array[ItemNum]).setSequel(&mixed_array[temp_num]);
+
+		Books* sql_ptr = (Books*)&mixed_array[temp_num];
+
+		(*book_ptr).setSequel(sql_ptr);
 	}
 	break;
 

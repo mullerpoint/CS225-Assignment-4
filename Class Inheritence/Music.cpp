@@ -17,7 +17,9 @@
 #include <io.h> // isatty for windows
 //#include <unistd.h> // isatty  for linux
 #include <iomanip> // included to make pretty output
+#include <typeinfo>
 #endif
+
 
 #include "Music.hpp"
 
@@ -34,13 +36,13 @@ Music::Music()
 	Music::setMinutes(DEF_MIN);
 	Music::setGenre(DEF_GENRE);
 
-	active++;
+	MediaItems::active++;
 }
 
 
 Music::~Music()
 {
-	active--;
+	MediaItems::active--;
 }
 
 //Set video Director
@@ -77,7 +79,7 @@ int Music::setGenre(Genre new_genre)
 //return the number of constructed items
 int Music::in_mem()
 {
-	return active;
+	return MediaItems::active;
 }
 
 #endif

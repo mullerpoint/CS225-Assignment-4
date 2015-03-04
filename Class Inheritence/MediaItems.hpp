@@ -14,8 +14,11 @@
 
 class MediaItems
 {
+private:
+
+	bool hasData;
+
 protected:
-	int num_alive;
 	std::string name;
 	int pub_year;
 	bool pub_year_def;
@@ -27,11 +30,10 @@ protected:
 	int element_num;
 
 	static int active;
-	bool hasData;
 
 public:
 	MediaItems();
-	~MediaItems();
+	virtual ~MediaItems();
 
 	//mutators
 	int setName(std::string);
@@ -46,6 +48,7 @@ public:
 	bool getPubYearDef();
 	Author* getAuthor();
 	double getPrice();
+	Elements* getElements(int=0);
 	int toCout();
 
 	//Predicate Functions

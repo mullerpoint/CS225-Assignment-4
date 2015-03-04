@@ -17,7 +17,9 @@
 #include <io.h> // isatty for windows
 //#include <unistd.h> // isatty  for linux
 #include <iomanip> // included to make pretty output
+#include <typeinfo>
 #endif
+
 
 #include "Videos.hpp"
 
@@ -34,13 +36,13 @@ Videos::Videos()
 	Videos::setSequel(NULL);
 
 	MediaItems::modified(false);
-	active++;
+	MediaItems::active++;
 }
 
 
 Videos::~Videos()
 {
-	active--;
+	MediaItems::active--;
 }
 
 //Set video Director
@@ -96,32 +98,76 @@ Videos* Videos::getSequel()
 //return the number of constructed items
 int Videos::in_mem()
 {
-	return active;
+	return MediaItems::active;
 }
 
-//std::ostream& operator<<(std::ostream &out, Videos &Video)
-//{
-//	out << Videos::element[1];
-//
-//
-//	if (Video.getDirector() == DEF_DIRECTOR);
-//	else
-//	{
-//		out << std::left << std::setw(TEXT_WIDTH) << "  Director" << " : " << Video.getDirector;
-//	}
-//	if (Video.getRunTime == DEF_RUNTIME);
-//	else
-//	{
-//		out << std::left << std::setw(TEXT_WIDTH) << "  RunTime" << " : " << Video.getRunTime;
-//	}
-//	if (Video.getSequel == NULL);
-//	else
-//	{
-//		out << std::left << std::setw(TEXT_WIDTH) << "  Sequel" << " : " << (*(Video.getSequel)).getName;
-//	}
-//
-//
-//	return out;
-//}
+std::ostream& operator<<(std::ostream &out, Videos &Video)
+{
+
+	//check if the item is empty
+	if (Video.isEmpty() == true); //if empty print nothing
+	else if (Video.isEmpty() == false) //if not empty print data thats available
+	{
+		// display item name if present
+		if (Video.getName == DEF_NAME);
+		else if (Video.getName != DEF_NAME)
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "Media Item" << " : " << Video.getName() << std::endl;
+		}
+
+		//display publication year if set; check if the value is default
+		if (Video.getPubYearDef() == true);
+		else if (Video.getPubYearDef() == false)
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "  Pub Year" << " : " << Video.getPubYear() << std::endl;
+		}
+
+		//display price if set
+		if (Video.getPrice == DEF_PRICE);
+		else if (Video.getPrice != DEF_PRICE)
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "  Price" << " : $" << std::fixed << Video.getPrice() << std::endl;
+		}
+
+		//display director if set
+		if (Video.getDirector() == DEF_DIRECTOR);
+		else
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "  Director" << " : " << Video.getDirector;
+		}
+
+		//display runtime if set
+		if (Video.getRunTime == DEF_RUNTIME);
+		else
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "  RunTime" << " : " << Video.getRunTime;
+		}
+
+		//display sequel if set
+		if (Video.getSequel == NULL);
+		else
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "  Sequel" << " : " << (*(Video.getSequel)).getName;
+		}
+
+		//display elements if they exist; 
+		if ((*Video.getElements(0)).isEmpty == true);
+		else if ((*Video.getElements(0)).isEmpty == false)
+		{
+			int count = 0;
+			while ((*Video.getElements(count)).isEmpty == false)
+			{
+				out << (*Video.getElements(count));
+				count++;
+			}
+		}
+	}
+
+
+
+
+
+	return out;
+}
 
 #endif

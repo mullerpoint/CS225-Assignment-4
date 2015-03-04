@@ -17,7 +17,9 @@
 #include <io.h> // isatty for windows
 //#include <unistd.h> // isatty  for linux
 #include <iomanip> // included to make pretty output
+#include <typeinfo>
 #endif
+
 
 #ifndef MEDIA_DEPENDENCIES_H_
 #define MEDIA_DEPENDENCIES_H_
@@ -50,13 +52,13 @@ MediaItems::MediaItems()
 
 	hasData = false;
 
-	active++;
+	MediaItems::active++;
 }
 
 //destructor
 MediaItems::~MediaItems()
 {
-	active--;
+	MediaItems::active--;
 }
 
 //set title of book
@@ -192,6 +194,14 @@ double MediaItems::getPrice()
 	return price;
 }
 
+//get the address of an elemtent in the array
+Elements* MediaItems::getElements(int elementNum)
+{
+	Elements* elem_addr = &element[elementNum];
+	
+	return elem_addr;
+}
+
 //returns if the item is empty
 bool MediaItems::isEmpty()
 {
@@ -208,7 +218,50 @@ int MediaItems::modified(bool data)
 //return the number of constructed items
 int MediaItems::in_mem()
 {
-	return active;
+	return MediaItems::active;
+}
+
+
+std::ostream& operator<<(std::ostream &out, MediaItems &MI)
+{
+	//check if the item is empty
+	if (MI.isEmpty() == true); //if empty print nothing
+	else if (MI.isEmpty() == false) //if not empty print data thats available
+	{
+		// display item name if present
+		if (MI.getName == DEF_NAME);
+		else if (MI.getName != DEF_NAME)
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "Media Item" << " : " << MI.getName() << std::endl;
+		}
+
+		//display publication year if set; check if the value is default
+		if (MI.getPubYearDef() == true);
+		else if (MI.getPubYearDef() == false)
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "  Pub Year" << " : " << MI.getPubYear() << std::endl;
+		}
+
+		//display price if set
+		if (MI.getPrice == DEF_PRICE);
+		else if (MI.getPrice != DEF_PRICE)
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "  Price" << " : $" << std::fixed << MI.getPrice() << std::endl;
+		}
+
+		//display elements if they exist; 
+		if ((*MI.getElements(0)).isEmpty == true);
+		else if ((*MI.getElements(0)).isEmpty == false)
+		{
+			int count = 0;
+			while ((*MI.getElements(count)).isEmpty == false)
+			{
+				out << (*MI.getElements(count));
+				count++;
+			}
+		}
+	}
+	return out;
 }
 
 #endif

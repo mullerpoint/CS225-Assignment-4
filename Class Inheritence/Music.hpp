@@ -10,7 +10,6 @@ class Music :
 	public MediaItems
 {
 private:
-	int num_alive;
 	std::string Producer;
 	double minutes;
 
@@ -25,7 +24,7 @@ private:
 
 	Genre musicGenre;
 
-	static int active;
+
 
 public:
 	Music();

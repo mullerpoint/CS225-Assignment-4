@@ -17,7 +17,9 @@
 #include <io.h> // isatty for windows
 //#include <unistd.h> // isatty  for linux
 #include <iomanip> // included to make pretty output
+#include <typeinfo>
 #endif
+
 
 #include "Books.hpp"
 
@@ -40,13 +42,13 @@ Books::Books()
 	setISBN(DEF_ISBN);
 
 	MediaItems::modified(false);
-	active++;
+	MediaItems::active++;
 }
 
 
 Books::~Books()
 {
-	active--;
+	MediaItems::active--;
 }
 
 
@@ -96,7 +98,7 @@ int Books::setISBN(std::string new_isbn)
 //return the number of constructed items
 int Books::in_mem()
 {
-	return active;
+	return MediaItems::active;
 }
 
 #endif

@@ -14,8 +14,8 @@
 #include <iostream> //default include
 #include <string> // included to get strings to work
 #include <locale> // included to get locale info for output
-//#include <io.h> // isatty for windows
-#include <unistd.h> // isatty  for linux
+#include <io.h> // isatty for windows
+//#include <unistd.h> // isatty  for linux
 #include <iomanip> // included to make pretty output
 #include <typeinfo>
 #endif
@@ -35,6 +35,8 @@
 #define ELEMENT_ZERO 0
 #define TEXT_WIDTH 20
 
+//active mediaitem objects to start
+int MediaItems::active = 0;
 
 //constructor
 MediaItems::MediaItems()
@@ -52,13 +54,13 @@ MediaItems::MediaItems()
 
 	hasData = false;
 
-	MediaItems::active++;
+	active++;
 }
 
 //destructor
 MediaItems::~MediaItems()
 {
-	MediaItems::active--;
+	active--;
 }
 
 //set title of book
@@ -218,7 +220,7 @@ int MediaItems::modified(bool data)
 //return the number of constructed items
 int MediaItems::in_mem()
 {
-	return MediaItems::active;
+	return active;
 }
 
 

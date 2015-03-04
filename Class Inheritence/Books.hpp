@@ -15,6 +15,7 @@ private:
 	bool in_print;
 	bool in_print_def;
 	Books* sequel_ptr;
+
 	
 public:
 	Books();
@@ -25,6 +26,13 @@ public:
 	int setInPrint(bool);
 	int setSequel(Books*);
 	int setISBN(std::string);
+
+	//Accessors
+	int getPages();
+	bool getInPrint();
+	bool getInPrintDef();
+	Books* getSequel();
+	std::string getISBN();
 
 	//predicate
 	int in_mem();

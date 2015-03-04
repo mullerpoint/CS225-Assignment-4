@@ -14,8 +14,8 @@
 #include <iostream> //default include
 #include <string> // included to get strings to work
 #include <locale> // included to get locale info for output
-//#include <io.h> // isatty for windows
-#include <unistd.h> // isatty  for linux
+#include <io.h> // isatty for windows
+//#include <unistd.h> // isatty  for linux
 #include <iomanip> // included to make pretty output
 #include <typeinfo>
 #endif
@@ -23,26 +23,30 @@
 
 #include "Music.hpp"
 
+#define DEF_NAME ""
+#define DEF_PRICE 0.00
+#define DEF_PUB 1970
+#define ELEMENT_ZERO 0
 #define DEF_PRODUCER ""
 #define DEF_MIN 0.0
 #define DEF_GENRE Genre::DEF
 #define TEXT_WIDTH 20
 
-Music::Music()
+Music::Music() : MediaItems()
 {
-	MediaItems::MediaItems();
+	/*MediaItems::MediaItems();*/
 
 	Music::setProducer(DEF_PRODUCER);
 	Music::setMinutes(DEF_MIN);
 	Music::setGenre(DEF_GENRE);
 
-	MediaItems::active++;
+	active++;
 }
 
 
 Music::~Music()
 {
-	MediaItems::active--;
+	active--;
 }
 
 //Set video Director
@@ -76,10 +80,92 @@ int Music::setGenre(Genre new_genre)
 	return 0;
 }
 
+//get the producer name
+std::string Music::getProducer()
+{
+	return Producer;
+}
+
+//get the music time
+double Music::getMinutes()
+{
+	return minutes;
+}
+
+//get music genre
+Music::Genre Music::getGenre()
+{
+	return musicGenre;
+}
+
 //return the number of constructed items
 int Music::in_mem()
 {
-	return MediaItems::active;
+	return active;
+}
+
+std::ostream& operator<<(std::ostream &out, Music &music)
+{
+
+	//check if the item is empty
+	if (music.isEmpty() == true); //if empty print nothing
+	else if (music.isEmpty() == false) //if not empty print data thats available
+	{
+		// display item name if present
+		if (music.getName() == DEF_NAME);
+		else if (music.getName() != DEF_NAME)
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "Media Item" << " : " << music.getName() << std::endl;
+		}
+
+		//display publication year if set; check if the value is default
+		if (music.getPubYearDef() == true);
+		else if (music.getPubYearDef() == false)
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "  Pub Year" << " : " << music.getPubYear() << std::endl;
+		}
+
+		//display price if set
+		if (music.getPrice() == DEF_PRICE);
+		else if (music.getPrice() != DEF_PRICE)
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "  Price" << " : $" << std::fixed << music.getPrice() << std::endl;
+		}
+
+		//display producer if set
+		if (music.getProducer() == DEF_PRODUCER);
+		else
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "  Director" << " : " << music.getProducer() << std::endl;
+		}
+
+		//display minutes
+		if (music.getMinutes() == DEF_MIN);
+		else
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "  Minutes" << " : " << music.getMinutes() << std::endl;
+		}
+
+		//Display genre
+		/*if (music.getGenre == 'Def');
+		else
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "  Genre" << " : " << music.getGenre() << std::endl;
+		}*/
+
+		//display elements if they exist; 
+		if ((*music.getElements(0)).isEmpty() == true);
+		else if ((*music.getElements(0)).isEmpty() == false)
+		{
+			int count = 0;
+			while ((*music.getElements(count)).isEmpty() == false)
+			{
+				out << (*music.getElements(count));
+				count++;
+			}
+		}
+	}
+	return out;
 }
 
 #endif

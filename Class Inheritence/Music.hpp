@@ -25,7 +25,6 @@ private:
 	Genre musicGenre;
 
 
-
 public:
 	Music();
 	~Music();
@@ -34,6 +33,11 @@ public:
 	int setProducer(std::string);
 	int setMinutes(double);
 	int setGenre(Genre);
+
+	//Accessors
+	std::string getProducer();
+	double getMinutes();
+	Music::Genre getGenre();
 
 	//predicate
 	int in_mem();

@@ -14,8 +14,8 @@
 #include <iostream> //default include
 #include <string> // included to get strings to work
 #include <locale> // included to get locale info for output
-#include <io.h> // isatty for windows
-//#include <unistd.h> // isatty  for linux
+//#include <io.h> // isatty for windows
+#include <unistd.h> // isatty  for linux
 #include <iomanip> // included to make pretty output
 #include <typeinfo>
 #endif

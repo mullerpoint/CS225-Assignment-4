@@ -28,6 +28,7 @@ public:
 	std::string getDirector();
 	double getRunTime();
 	Videos* getSequel();
+	int toCout();
 
 	//predicate
 	int in_mem();

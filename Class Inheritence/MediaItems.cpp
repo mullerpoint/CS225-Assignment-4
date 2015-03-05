@@ -20,20 +20,25 @@
 #include <typeinfo>
 #endif
 
-
+//includes for external dependencies
 #ifndef MEDIA_DEPENDENCIES_H_
 #define MEDIA_DEPENDENCIES_H_
 #include "Author.hpp"
 #include "Elements.hpp"
 #endif
 
+// include header file
 #include "MediaItems.hpp"
 
+//defines for default vaules and text output options
 #define DEF_NAME ""
 #define DEF_PRICE 0.00
 #define DEF_PUB 1970
 #define ELEMENT_ZERO 0
 #define TEXT_WIDTH 20
+
+//Function prototype for insertion operator
+std::ostream& operator<<(std::ostream &out, MediaItems &MI);
 
 //active mediaitem objects to start
 int MediaItems::active = 0;
@@ -126,43 +131,7 @@ int MediaItems::setAuthor(Author* new_author)
 //print out item
 int MediaItems::toCout()
 {
-	//check if the item is empty
-	if (isEmpty() == true); //if empty print nothing
-	else if (isEmpty() == false) //if not empty print data thats available
-	{
-		// display item name if present
-		if (name == DEF_NAME);
-		else if (name != DEF_NAME)
-		{
-			std::cout << std::left << std::setw(TEXT_WIDTH) << "Media Item" << " : " << name << std::endl;
-		}
-
-		//display publication year if set; check if the value is default
-		if (pub_year_def == true);
-		else if (pub_year_def == false)
-		{
-			std::cout << std::left << std::setw(TEXT_WIDTH) << "  Pub Year" << " : " << pub_year << std::endl;
-		}
-
-		//display price if set
-		if (price == DEF_PRICE);
-		else if (price != DEF_PRICE)
-		{
-			std::cout << std::left << std::setw(TEXT_WIDTH) << "  Price" << " : $" << std::fixed << price << std::endl;
-		}
-
-		//display elements if they exist; 
-		if (element_num == ELEMENT_ZERO);
-		else if (element_num > ELEMENT_ZERO)
-		{
-			int count = 0;
-			while (count < element_num)
-			{
-				std::cout << MediaItems::element[count];
-				count++;
-			}
-		}
-	}
+	std::cout << (*this);
 	return 0;
 }
 

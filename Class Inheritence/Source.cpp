@@ -143,7 +143,7 @@ void process_menu_in(char inchar)
 		int count = 0;
 		while (count <= (OBJS_AUTH - 1))
 		{
-			if (!Auth_ptr[count].isEmpty());
+			if (Auth_ptr[count].isEmpty());
 			//isempty() returns the hasData value which is false for an object with no data and true for an object with data, hence the ! to invert the return value
 			else
 			{
@@ -163,8 +163,7 @@ void process_menu_in(char inchar)
 		count = 0;
 		while (count <= (OBJS_MI - 1))
 		{
-			if (!(*mixed_array[count]).isEmpty());
-			//isempty() returns the hasData value which is false for an object with no data and true for an object with data, hence the ! to invert the return value
+			if ((*mixed_array[count]).isEmpty());
 			else //if (mixed_array[count].isEmpty() == true)
 			{
 				std::cout << std::endl << "Item [" << count << "]" << std::endl;

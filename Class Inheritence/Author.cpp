@@ -113,7 +113,7 @@ void Author::modified(bool data)
 //object empty check
 bool Author::isEmpty()
 {
-	return hasData;
+	return !hasData;
 }
 
 //objects in memory

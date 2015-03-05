@@ -33,6 +33,7 @@ public:
 	bool getInPrintDef();
 	Books* getSequel();
 	std::string getISBN();
+	int toCout();
 
 	//predicate
 	int in_mem();

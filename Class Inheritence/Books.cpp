@@ -20,9 +20,10 @@
 #include <typeinfo>
 #endif
 
-
+// include header file
 #include "Books.hpp"
 
+//defines for default vaules and text output options
 #define DEF_NAME ""
 #define DEF_PRICE 0.00
 #define DEF_PUB 1970
@@ -31,6 +32,9 @@
 #define DEF_PUB 1970
 #define DEF_ISBN ""
 #define TEXT_WIDTH 20
+
+//Function prototype for insertion operator
+std::ostream& operator<<(std::ostream &out, Books &Book);
 
 Books::Books()
 {
@@ -96,6 +100,12 @@ int Books::setISBN(std::string new_isbn)
 {
 	Books::isbn = new_isbn;
 	MediaItems::modified(true);
+	return 0;
+}
+
+int Books::toCout()
+{
+	std::cout << (*this);
 	return 0;
 }
 
@@ -201,5 +211,8 @@ std::ostream& operator<<(std::ostream &out, Books &Book)
 	}
 	return out;
 }
+
+
+
 
 #endif

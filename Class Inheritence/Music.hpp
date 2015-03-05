@@ -38,6 +38,7 @@ public:
 	std::string getProducer();
 	double getMinutes();
 	Music::Genre getGenre();
+	int toCout();
 
 	//predicate
 	int in_mem();

@@ -20,9 +20,10 @@
 #include <typeinfo>
 #endif
 
-
+// include header file
 #include "Music.hpp"
 
+//defines for default vaules and text output options
 #define DEF_NAME ""
 #define DEF_PRICE 0.00
 #define DEF_PUB 1970
@@ -31,6 +32,9 @@
 #define DEF_MIN 0.0
 #define DEF_GENRE Genre::DEF
 #define TEXT_WIDTH 20
+
+//Function prototype for insertion operator
+std::ostream& operator<<(std::ostream &out, Music &music);
 
 Music::Music() : MediaItems()
 {
@@ -96,6 +100,12 @@ double Music::getMinutes()
 Music::Genre Music::getGenre()
 {
 	return musicGenre;
+}
+
+int Music::toCout()
+{
+	std::cout << (*this);
+	return 0;
 }
 
 //return the number of constructed items

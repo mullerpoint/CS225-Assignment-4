@@ -115,6 +115,12 @@ int Videos::in_mem()
 	return active;
 }
 
+int Videos::clear()
+{
+	Videos::Videos();
+	return 0;
+}
+
 std::ostream& operator<<(std::ostream &out, Videos &Video)
 {
 

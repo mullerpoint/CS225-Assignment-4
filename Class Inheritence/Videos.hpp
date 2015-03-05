@@ -32,6 +32,7 @@ public:
 
 	//predicate
 	int in_mem();
+	int clear();
 };
 
 #endif

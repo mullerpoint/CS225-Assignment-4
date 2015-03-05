@@ -36,6 +36,7 @@
 //Function prototype for insertion operator
 std::ostream& operator<<(std::ostream &out, Books &Book);
 
+//constructor
 Books::Books()
 {
 	MediaItems::MediaItems();
@@ -53,7 +54,7 @@ Books::Books()
 	active++;
 }
 
-
+//destructor
 Books::~Books()
 {
 	active--;
@@ -94,8 +95,7 @@ int Books::setSequel(Books* new_sequel)
 	return 0;
 }
 
-
-
+//set book isbn
 int Books::setISBN(std::string new_isbn)
 {
 	Books::isbn = new_isbn;
@@ -103,16 +103,11 @@ int Books::setISBN(std::string new_isbn)
 	return 0;
 }
 
+//call overloaded print out function
 int Books::toCout()
 {
 	std::cout << (*this);
 	return 0;
-}
-
-//return the number of constructed items
-int Books::in_mem()
-{
-	return active;
 }
 
 //get page count
@@ -143,6 +138,19 @@ Books* Books::getSequel()
 std::string Books::getISBN()
 {
 	return isbn;
+}
+
+//return the number of constructed items
+int Books::in_mem()
+{
+	return active;
+}
+
+//clear book
+int Books::clear()
+{
+	Books::Books();
+	return 0;
 }
 
 std::ostream& operator<<(std::ostream &out, Books &Book)

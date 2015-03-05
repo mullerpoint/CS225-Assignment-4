@@ -6,9 +6,16 @@
 #define MUSIC_CLASS_DEF_H_
 
 #include "MediaItems.hpp"
+
+
+
 class Music :
 	public MediaItems
 {
+public :
+	enum class Genre {
+		ROC, COU, HIP, TEC, REG, OTHER, DEF
+	};
 private:
 	std::string Producer;
 	double minutes;
@@ -17,11 +24,7 @@ private:
 	/*enum class Genre {
 		ROCK = 'roc', COUNTRY = 'cou', HIPHOP = 'hip', TECNO = 'tec', REGGAE = 'reg', OTHER, DEF
 	};*/
-
-	enum class Genre {
-		ROC, COU, HIP, TEC, REG, OTHER, DEF
-	};
-
+	
 	Genre musicGenre;
 
 
@@ -31,17 +34,19 @@ public:
 
 	//mutators
 	int setProducer(std::string);
-	int setMinutes(double);
+	int setRunTime(double);
 	int setGenre(Genre);
 
 	//Accessors
 	std::string getProducer();
-	double getMinutes();
+	double getRunTime();
 	Music::Genre getGenre();
 	int toCout();
 
 	//predicate
 	int in_mem();
+	int clear();
+	
 };
 
 #endif

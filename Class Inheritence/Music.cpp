@@ -41,9 +41,10 @@ Music::Music() : MediaItems()
 	/*MediaItems::MediaItems();*/
 
 	Music::setProducer(DEF_PRODUCER);
-	Music::setMinutes(DEF_MIN);
+	Music::setRunTime(DEF_MIN);
 	Music::setGenre(DEF_GENRE);
 
+	MediaItems::modified(false);
 	active++;
 }
 
@@ -62,7 +63,7 @@ int Music::setProducer(std::string new_producer)
 }
 
 //set time of music
-int Music::setMinutes(double new_Minutes)
+int Music::setRunTime(double new_Minutes)
 {
 	if (new_Minutes >=0)
 	{
@@ -91,7 +92,7 @@ std::string Music::getProducer()
 }
 
 //get the music time
-double Music::getMinutes()
+double Music::getRunTime()
 {
 	return minutes;
 }
@@ -112,6 +113,13 @@ int Music::toCout()
 int Music::in_mem()
 {
 	return active;
+}
+
+//clear music object
+int Music::clear()
+{
+	Music::Music();
+	return 0;
 }
 
 std::ostream& operator<<(std::ostream &out, Music &music)
@@ -150,10 +158,10 @@ std::ostream& operator<<(std::ostream &out, Music &music)
 		}
 
 		//display minutes
-		if (music.getMinutes() == DEF_MIN);
+		if (music.getRunTime() == DEF_MIN);
 		else
 		{
-			out << std::left << std::setw(TEXT_WIDTH) << "  Minutes" << " : " << music.getMinutes() << std::endl;
+			out << std::left << std::setw(TEXT_WIDTH) << "  Minutes" << " : " << music.getRunTime() << std::endl;
 		}
 
 		//Display genre

@@ -192,6 +192,11 @@ int MediaItems::in_mem()
 	return active;
 }
 
+int MediaItems::clear() 
+{
+	MediaItems::MediaItems();
+	return 0;
+}
 
 std::ostream& operator<<(std::ostream &out, MediaItems &MI)
 {

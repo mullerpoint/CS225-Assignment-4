@@ -237,25 +237,35 @@ void process_menu_in(char inchar)
 	// clear item menu option
 	case '0':
 	{
-		//(*mixed_array[ItemNum]) = (*mixed_array[ItemNum])();
+		(*(mixed_array[ItemNum])).clear();
+		std::cout << "Item " << ItemNum << " Cleared" << std::endl;
 	}
 	break;
 
-	// display item menu option
-	case 'D':
+	//set media item duration or time
+	case 'B':
 	{
-		std::cout << std::endl << "Item [" << ItemNum << "] :" << std::endl;
-		(*mixed_array[ItemNum]).toCout();
-	}
-	break;
+		if (!(typeid(*mixed_array[ItemNum]) == typeid(Books) || typeid(*mixed_array[ItemNum]) == typeid(MediaItems)))
+		{
+			double runTime;
+			std::cout << "Please enter the run time : ";
+			std::cin >> runTime;
+			if (typeid(*mixed_array[ItemNum]) == typeid(Music))
+			{
+				Music* music_ptr = (Music*)&mixed_array[ItemNum];
+				(*music_ptr).setRunTime(runTime);
+			}
+			else
+			{
+				Videos* video_ptr = (Videos*)&mixed_array[ItemNum];
+				(*video_ptr).setRunTime(runTime);
+			}
 
-	// enter item name menu option
-	case 'N':
-	{
-		std::string new_name;
-		std::cout << "Enter Media Item Title : ";
-		std::getline(std::cin, new_name);
-		(*mixed_array[ItemNum]).setName(new_name);
+		}
+		else
+		{
+			std::cout << "Error : you cannot set the runtime on a Book or Media Item object" << std::endl;
+		}
 	}
 	break;
 
@@ -294,58 +304,11 @@ void process_menu_in(char inchar)
 	}
 	break;
 
-	// enter item page count menu option
-	case 'P':
+	// display item menu option
+	case 'D':
 	{
-		if (typeid((*mixed_array[ItemNum])) == typeid(Books))
-		{
-			Books* book_ptr = (Books*)&mixed_array[ItemNum];
-			
-			int new_pages;
-			std::cout << "Enter Media Item Pages : ";
-			std::cin >> new_pages;
-			(*book_ptr).setPages(new_pages);
-			std::cin.ignore(10000, '\n');
-		}
-	}
-	break;
-
-	// set the item in print status
-	case 'I':
-	{
-		if (typeid(*mixed_array[ItemNum]) == typeid(Books))
-		{
-			Books* book_ptr = (Books*)&mixed_array[ItemNum];
-
-			bool printStatus;
-			std::cout << "Is the book still in print (0/1) : ";
-			std::cin >> printStatus;
-			std::cin.ignore(10000, '\n');
-			(*book_ptr).setInPrint(printStatus); 
-		}
-
-	}
-	break;
-
-	// set the item value ($)
-	case 'V':
-	{
-		double new_price;
-		std::cout << "Enter Media Item value : ";
-		std::cin >> new_price;
-		std::cin.ignore(10000, '\n');
-		(*mixed_array[ItemNum]).setPrice(new_price);
-	}
-	break;
-
-	// set the item publication year
-	case 'Y':
-	{
-		int new_year;
-		std::cout << "Enter Media Item publication year : ";
-		std::cin >> new_year;
-		std::cin.ignore(10000, '\n');
-		(*mixed_array[ItemNum]).setPubYear(new_year);
+		std::cout << std::endl << "Item [" << ItemNum << "] :" << std::endl;
+		(*mixed_array[ItemNum]).toCout();
 	}
 	break;
 
@@ -387,14 +350,150 @@ void process_menu_in(char inchar)
 	}
 	break;
 
-	//Set author pointer
-	case 'T':
+	//set music/video producer/director respectivly
+	case 'F':
 	{
-		int temp_num;
-		std::cout << "Enter Author index number : ";
-		std::cin >> temp_num;
-		std::cin.ignore(1, '\n');
-		(*mixed_array[ItemNum]).setAuthor(&Auth_ptr[temp_num]);
+		if (!(typeid(*mixed_array[ItemNum]) == typeid(Books) || typeid(*mixed_array[ItemNum]) == typeid(MediaItems)))
+		{
+			std::string executive;
+			std::cout << "Please enter the Producer or Director : ";
+			std::getline(std::cin, executive);
+
+			if (typeid(*mixed_array[ItemNum]) == typeid(Music))
+			{
+				Music* music_ptr = (Music*)&mixed_array[ItemNum];
+				(*music_ptr).setProducer(executive);
+			}
+			else
+			{
+				Videos* video_ptr = (Videos*)&mixed_array[ItemNum];
+				(*video_ptr).setDirector(executive);
+			}
+		}
+		else
+		{
+			std::cout << "Error : you cannot set the producer or director on a Book or Media Item object" << std::endl;
+		}
+	}
+	break;
+
+	// set the item in print status
+	case 'I':
+	{
+		if (typeid(*mixed_array[ItemNum]) == typeid(Books))
+		{
+			Books* book_ptr = (Books*)&mixed_array[ItemNum];
+
+			bool printStatus;
+			std::cout << "Is the book still in print (0/1) : ";
+			std::cin >> printStatus;
+			std::cin.ignore(10000, '\n');
+			(*book_ptr).setInPrint(printStatus);
+		}
+	}
+	break;
+
+	//set Book ISBN
+	case 'J':
+	{
+		if (typeid(*mixed_array[ItemNum]) == typeid(Books))
+		{
+			Books* book_ptr = (Books*)&mixed_array[ItemNum];
+
+			std::string isbn;
+			std::cout << "Please enter the Book ISBN :";
+			std::getline(std::cin, isbn);
+			(*book_ptr).setISBN(isbn);
+		}
+		else
+		{
+			std::cout << "Error : non-book item cannot have an ISBN";
+		}
+	}
+	break;
+
+	//set Music genre
+	case 'K':
+	{
+		std::cout << "This has not yet been implemented, case K";
+		std::cin.ignore(10000, '/n');
+	}
+	break;
+
+	//List Music by genre
+	case 'L':
+	{
+		std::cout << "This has not yet been implemented, case L";
+		std::cin.ignore(10000, '/n');
+/*
+		int count;
+		Music::Genre genre;
+		while (count < OBJS_MI)
+		{
+			if (typeid(*mixed_array[count]) == typeid(Music))
+			{
+				Music* music_ptr = (Music*)&mixed_array[count];
+				if ((*music_ptr).getGenre == genre)
+				{
+					std::cout << std::endl << "Item [" << count << "]" << std::endl;
+					(*mixed_array[count]).toCout();
+				}
+			}
+			count++;
+		}
+*/
+	}
+	break;
+
+	// display menu again menu option
+	case 'M':
+		print_menu();
+		break;
+
+		// enter item name menu option
+	case 'N':
+	{
+		std::string new_name;
+		std::cout << "Enter Media Item Title : ";
+		std::getline(std::cin, new_name);
+		(*mixed_array[ItemNum]).setName(new_name);
+	}
+	break;
+
+	// enter item page count menu option
+	case 'P':
+	{
+		if (typeid((*mixed_array[ItemNum])) == typeid(Books))
+		{
+			Books* book_ptr = (Books*)&mixed_array[ItemNum];
+
+			int new_pages;
+			std::cout << "Enter Media Item Pages : ";
+			std::cin >> new_pages;
+			(*book_ptr).setPages(new_pages);
+			std::cin.ignore(10000, '\n');
+		}
+	}
+	break;
+
+	// quit program menu option
+	case 'Q':
+		done = true;
+		break;
+
+		// show memory useage
+	case 'R':
+	{
+		std::cout
+			<< std::left << std::setw(28) << "Memory Used for Authors" << " : " << sizeof(Author)*Auth_ptr[0].in_mem() << " Bytes"
+			<< std::endl << std::left << std::setw(28) << "Memory Used for Media Items" << " : " << sizeof(MediaItems)*(*mixed_array[60]).in_mem() << " Bytes"
+			<< std::endl << std::left << std::setw(28) << "Memory Used for Book Items" << " : " << sizeof(Books)*(*mixed_array[0]).in_mem() << " Bytes"
+			<< std::endl << std::left << std::setw(28) << "Memory Used for Music Items" << " : " << sizeof(Music)*(*mixed_array[20]).in_mem() << " Bytes"
+			<< std::endl << std::left << std::setw(28) << "Memory Used for Video Items" << " : " << sizeof(Videos)*(*mixed_array[40]).in_mem() << " Bytes"
+			<< std::endl << std::left << std::setw(28) << "  Total Memory Used" << " : " <<
+			(sizeof(MediaItems)*(*mixed_array[60]).in_mem()) + (sizeof(Author)*Auth_ptr[0].in_mem() +
+			sizeof(Books)*(*mixed_array[0]).in_mem() + sizeof(Music)*(*mixed_array[20]).in_mem() + sizeof(Videos)*(*mixed_array[40]).in_mem()) << " Bytes";
+
 	}
 	break;
 
@@ -414,29 +513,38 @@ void process_menu_in(char inchar)
 	}
 	break;
 
-	// display menu again menu option
-	case 'M':
-		print_menu();
-		break;
-
-		// quit program menu option
-	case 'Q':
-		done = true;
-		break;
-
-		// show memory useage
-	case 'R':
+	//Set author pointer
+	case 'T':
 	{
-		std::cout
-			<< std::left << std::setw(28) << "Memory Used for Authors" << " : " << sizeof(Author)*Auth_ptr[0].in_mem() << " Bytes"
-			<< std::endl << std::left << std::setw(28) << "Memory Used for Media Items" << " : " << sizeof(MediaItems)*(*mixed_array[60]).in_mem() << " Bytes"
-			<< std::endl << std::left << std::setw(28) << "Memory Used for Book Items" << " : " << sizeof(Books)*(*mixed_array[0]).in_mem() << " Bytes"
-			<< std::endl << std::left << std::setw(28) << "Memory Used for Music Items" << " : " << sizeof(Music)*(*mixed_array[20]).in_mem() << " Bytes"
-			<< std::endl << std::left << std::setw(28) << "Memory Used for Video Items" << " : " << sizeof(Videos)*(*mixed_array[60]).in_mem() << " Bytes"
-			<< std::endl << std::left << std::setw(28) << "  Total Memory Used" << " : " <<
-			(sizeof(MediaItems)*(*mixed_array[60]).in_mem()) + (sizeof(Author)*Auth_ptr[0].in_mem() +
-			sizeof(Books)*(*mixed_array[0]).in_mem() + sizeof(Music)*(*mixed_array[20]).in_mem() + sizeof(Videos)*(*mixed_array[40]).in_mem()) << " Bytes";
+		int temp_num;
+		std::cout << "Enter Author index number : ";
+		std::cin >> temp_num;
+		std::cin.ignore(1, '\n');
+		(*mixed_array[ItemNum]).setAuthor(&Auth_ptr[temp_num]);
+	}
+	break;
 
+
+
+	// set the item value ($)
+	case 'V':
+	{
+		double new_price;
+		std::cout << "Enter Media Item value : ";
+		std::cin >> new_price;
+		std::cin.ignore(10000, '\n');
+		(*mixed_array[ItemNum]).setPrice(new_price);
+	}
+	break;
+
+	// set the item publication year
+	case 'Y':
+	{
+		int new_year;
+		std::cout << "Enter Media Item publication year : ";
+		std::cin >> new_year;
+		std::cin.ignore(10000, '\n');
+		(*mixed_array[ItemNum]).setPubYear(new_year);
 	}
 	break;
 
@@ -451,7 +559,7 @@ void process_menu_in(char inchar)
 void print_menu()
 {
 	std::cout << std::endl
-		<< "0 - 19 : Books" << std::endl
+		<< "00 - 19 : Books" << std::endl
 		<< "20 - 39 : Music" << std::endl
 		<< "40 - 59 : Videos" << std::endl
 		<< "60 - 79 : Media Items" << std::endl

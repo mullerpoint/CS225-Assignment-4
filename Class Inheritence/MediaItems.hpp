@@ -55,6 +55,7 @@ public:
 	bool isEmpty();
 	int modified(bool);
 	int in_mem();
+	virtual int clear();
 };
 
 #endif

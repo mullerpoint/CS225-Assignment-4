@@ -138,7 +138,7 @@ int MediaItems::toCout()
 //get book title
 std::string MediaItems::getName()
 {
-	return MediaItems::name;
+	return name;
 }
 
 //get pulication year
@@ -194,7 +194,7 @@ int MediaItems::in_mem()
 
 int MediaItems::clear() 
 {
-	(*this) = MediaItems::MediaItems();
+	(*this) = MediaItems();
 	MediaItems::active = MediaItems::active - 1; //active is increased when calling the constructor
 	return 0;
 }

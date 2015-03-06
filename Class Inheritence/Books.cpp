@@ -50,7 +50,7 @@ Books::Books()
 
 	setISBN(DEF_ISBN);
 
-	MediaItems::modified(false);
+	Books::modified(false);
 	active++;
 }
 
@@ -67,7 +67,7 @@ int Books::setPages(int new_pages)
 	if (new_pages >= 0)
 	{
 		Books::pages = new_pages;
-		MediaItems::modified(true);
+		Books::modified(true);
 		return 0;
 	}
 	else
@@ -83,7 +83,7 @@ int Books::setInPrint(bool printStatus)
 {
 	in_print = printStatus;
 	in_print_def = false;
-	MediaItems::modified(true);
+	Books::modified(true);
 	return 0;
 }
 
@@ -91,15 +91,15 @@ int Books::setInPrint(bool printStatus)
 int Books::setSequel(Books* new_sequel)
 {
 	Books::sequel_ptr = new_sequel;
-	MediaItems::modified(true);
+	Books::modified(true);
 	return 0;
 }
 
 //set book isbn
 int Books::setISBN(std::string new_isbn)
 {
-	(*this).isbn = new_isbn;
-	MediaItems::modified(true);
+	Books::isbn = new_isbn;
+	Books::modified(true);
 	return 0;
 }
 
@@ -150,7 +150,7 @@ int Books::in_mem()
 int Books::clear()
 {
 	*this = Books::Books();
-	MediaItems::active = MediaItems::active - 2; //active is increased by two when calling the constructor
+	Books::active = Books::active - 2; //active is increased by two when calling the constructor
 	return 0;
 }
 

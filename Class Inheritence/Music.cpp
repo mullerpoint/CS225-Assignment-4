@@ -28,7 +28,7 @@
 #define DEF_PRICE 0.00
 #define DEF_PUB 1970
 #define ELEMENT_ZERO 0
-#define DEF_PRODUCER ""
+#define DEF_PRODUCER " "
 #define DEF_MIN 0.0
 #define DEF_GENRE Genre::DEF
 #define TEXT_WIDTH 20
@@ -42,9 +42,9 @@ Music::Music() : MediaItems()
 
 	Music::setProducer(DEF_PRODUCER);
 	Music::setRunTime(DEF_MIN);
-	Music::setGenre(DEF_GENRE);
+	//Music::setGenre(DEF_GENRE);
 
-	MediaItems::modified(false);
+	Music::modified(false);
 	active++;
 }
 
@@ -58,7 +58,7 @@ Music::~Music()
 int Music::setProducer(std::string new_producer)
 {
 	Music::Producer = new_producer;
-	MediaItems::modified(true);
+	Music::modified(true);
 	return 0;
 }
 
@@ -68,7 +68,7 @@ int Music::setRunTime(double new_Minutes)
 	if (new_Minutes >=0)
 	{
 		Music::minutes = new_Minutes;
-		MediaItems::modified(true);
+		Music::modified(true);
 		return 0;
 	}
 	else
@@ -118,8 +118,8 @@ int Music::in_mem()
 //clear music object
 int Music::clear()
 {
-	(*this) = Music::Music();
-	MediaItems::active = MediaItems::active - 2; //active is increased by two when calling the constructor
+	(*this) = Music();
+	Music::active = Music::active - 2; //active is increased by two when calling the constructor
 	return 0;
 }
 

@@ -31,13 +31,13 @@ public:
 	int getPages();
 	bool getInPrint();
 	bool getInPrintDef();
-	virtual Books* getSequel();
+	Books* getSequel();
 	std::string getISBN();
-	virtual int toCout();
+	int toCout();
 
 	//predicate
 	int in_mem();
-	virtual int clear();
+	int clear();
 };
 
 #endif

@@ -21,18 +21,18 @@ public:
 
 	//mutators
 	int setDirector(std::string);
-	virtual int setRunTime(double);
+	int setRunTime(double);
 	int setSequel(Videos*);
 	
 	//accessors
 	std::string getDirector();
 	double getRunTime();
-	virtual Videos* getSequel();
-	virtual int toCout();
+	Videos* getSequel();
+	int toCout();
 
 	//predicate
 	int in_mem();
-	virtual int clear();
+	int clear();
 };
 
 #endif

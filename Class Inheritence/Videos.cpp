@@ -43,8 +43,7 @@ Videos::Videos()
 	Videos::setRunTime(DEF_RUNTIME);
 	Videos::setSequel(NULL);
 
-	MediaItems::modified(false);
-	active++;
+	Videos::modified(false);
 }
 
 
@@ -57,7 +56,7 @@ Videos::~Videos()
 int Videos::setDirector(std::string new_Director)
 {
 	Videos::director = new_Director;
-	MediaItems::modified(true);
+	Videos::modified(true);
 	return 0;
 }
 
@@ -67,7 +66,7 @@ int Videos::setRunTime(double new_RunTime)
 	if (new_RunTime >= 0)
 	{
 		Videos::runTime = new_RunTime;
-		MediaItems::modified(true);
+		Videos::modified(true);
 		return 0;
 	}
 	else
@@ -81,7 +80,7 @@ int Videos::setRunTime(double new_RunTime)
 int Videos::setSequel(Videos* new_sequel)
 {
 	Videos::sequel_ptr = new_sequel;
-	MediaItems::modified(true);
+	Videos::modified(true);
 	return 0;
 }
 
@@ -118,7 +117,7 @@ int Videos::in_mem()
 int Videos::clear()
 {
 	(*this) = Videos::Videos();
-	MediaItems::active = MediaItems::active - 2; //active is increased by two when calling the constructor
+	Videos::active = Videos::active - 1; 
 	return 0;
 }
 

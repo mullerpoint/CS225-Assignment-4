@@ -39,7 +39,7 @@ public:
 
 	//predicate
 	int in_mem();
-	virtual int clear();
+	int clear();
 	
 };
 

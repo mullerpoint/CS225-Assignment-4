@@ -49,11 +49,11 @@ public:
 	Author* getAuthor();
 	double getPrice();
 	Elements* getElements(int=0);
-	int toCout();
+	virtual int toCout();
 
 	//Predicate Functions
-	bool isEmpty();
-	int modified(bool);
+	virtual bool isEmpty();
+	virtual int modified(bool);
 	int in_mem();
 	virtual int clear();
 };

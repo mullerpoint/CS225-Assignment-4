@@ -403,7 +403,7 @@ void process_menu_in(char inchar)
 			std::string isbn;
 			std::cout << "Please enter the Book ISBN :";
 			std::getline(std::cin, isbn);
-			(*book_ptr).setISBN(isbn);
+			(*((Books*)(&mixed_array[ItemNum]))).setISBN(isbn);
 		}
 		else
 		{
@@ -425,23 +425,23 @@ void process_menu_in(char inchar)
 	{
 		std::cout << "This has not yet been implemented, case L";
 		std::cin.ignore(10000, '/n');
-/*
-		int count;
-		Music::Genre genre;
-		while (count < OBJS_MI)
-		{
-			if (typeid(*mixed_array[count]) == typeid(Music))
-			{
+		/*
+				int count;
+				Music::Genre genre;
+				while (count < OBJS_MI)
+				{
+				if (typeid(*mixed_array[count]) == typeid(Music))
+				{
 				Music* music_ptr = (Music*)&mixed_array[count];
 				if ((*music_ptr).getGenre == genre)
 				{
-					std::cout << std::endl << "Item [" << count << "]" << std::endl;
-					(*mixed_array[count]).toCout();
+				std::cout << std::endl << "Item [" << count << "]" << std::endl;
+				(*mixed_array[count]).toCout();
 				}
-			}
-			count++;
-		}
-*/
+				}
+				count++;
+				}
+				*/
 	}
 	break;
 
@@ -500,16 +500,26 @@ void process_menu_in(char inchar)
 	//Set Sequel index
 	case 'S':
 	{
-		Books* book_ptr = (Books*)&mixed_array[ItemNum];
-
 		int temp_num;
 		std::cout << "Enter Sequel index number : ";
 		std::cin >> temp_num;
 		std::cin.ignore(1, '\n');
 
-		Books* sql_ptr = (Books*)&mixed_array[temp_num];
+		if (typeid(*mixed_array[ItemNum]) == typeid(Books))
+		{
+			Books* book_ptr = (Books*)&mixed_array[ItemNum];
+			Books* sql_ptr = (Books*)&mixed_array[temp_num];
 
-		(*book_ptr).setSequel(sql_ptr);
+			(*book_ptr).setSequel(sql_ptr);
+		}
+		else
+		{
+			Videos* video_ptr = (Videos*)&mixed_array[ItemNum];
+			Videos* sql_ptr = (Videos*)&mixed_array[temp_num];
+
+			(*video_ptr).setSequel(sql_ptr);
+		}
+
 	}
 	break;
 

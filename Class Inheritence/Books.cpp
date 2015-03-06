@@ -98,7 +98,7 @@ int Books::setSequel(Books* new_sequel)
 //set book isbn
 int Books::setISBN(std::string new_isbn)
 {
-	Books::isbn = new_isbn;
+	(*this).isbn = new_isbn;
 	MediaItems::modified(true);
 	return 0;
 }
@@ -149,7 +149,8 @@ int Books::in_mem()
 //clear book
 int Books::clear()
 {
-	Books::Books();
+	*this = Books::Books();
+	MediaItems::active = MediaItems::active - 2; //active is increased by two when calling the constructor
 	return 0;
 }
 
@@ -161,7 +162,10 @@ std::ostream& operator<<(std::ostream &out, Books &Book)
 	else if (Book.isEmpty() == false) //if not empty print data thats available
 	{
 		// display item name if present
-		if (Book.getName() == DEF_NAME);
+		if (Book.getName() == DEF_NAME)
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "Media Item Name" << " : " << "No Name Set" << std::endl;
+		}
 		else if (Book.getName() != DEF_NAME)
 		{
 			out << std::left << std::setw(TEXT_WIDTH) << "Media Item" << " : " << Book.getName() << std::endl;
@@ -188,21 +192,32 @@ std::ostream& operator<<(std::ostream &out, Books &Book)
 			out << std::left << std::setw(TEXT_WIDTH) << "  Page Count" << " : " << Book.getPages() << std::endl;
 		}
 
-		//display runtime if set
-		if (Book.getInPrintDef() == true)
-		{
-			out << std::left << std::setw(TEXT_WIDTH) << "  Print Status" << " : " << "In Print";
-		}
+		//display print status if set
+		if (Book.getInPrintDef() == true);
 		else if (Book.getInPrintDef() == false)
 		{
-			out << std::left << std::setw(TEXT_WIDTH) << "  Print Status" << " : " << "Out of Print";
+			if (Book.getInPrint() == true)
+			{
+				out << std::left << std::setw(TEXT_WIDTH) << "  Print Status" << " : " << "In Print" << std::endl;
+			}
+			else
+			{
+				out << std::left << std::setw(TEXT_WIDTH) << "  Print Status" << " : " << "Out of Print" << std::endl;
+			}
+		}
+
+		//display isbn
+		if (Book.getISBN() == "");
+		else if (Book.getISBN() != "")
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "  ISBN" << " : " << Book.getISBN() << std::endl;
 		}
 
 		//display sequel if set
 		if (Book.getSequel() == NULL);
 		else
 		{
-			out << std::left << std::setw(TEXT_WIDTH) << "  Sequel" << " : " << (*(Book.getSequel())).getName();
+			out << std::left << std::setw(TEXT_WIDTH) << "  Sequel" << " : " << (*(Book.getSequel())).getName() << std::endl;
 		}
 
 		//display elements if they exist; 

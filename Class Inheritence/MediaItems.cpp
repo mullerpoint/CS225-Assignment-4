@@ -194,7 +194,8 @@ int MediaItems::in_mem()
 
 int MediaItems::clear() 
 {
-	MediaItems::MediaItems();
+	(*this) = MediaItems::MediaItems();
+	MediaItems::active = MediaItems::active - 1; //active is increased when calling the constructor
 	return 0;
 }
 
@@ -205,7 +206,10 @@ std::ostream& operator<<(std::ostream &out, MediaItems &MI)
 	else if (MI.isEmpty() == false) //if not empty print data thats available
 	{
 		// display item name if present
-		if (MI.getName() == DEF_NAME);
+		if (MI.getName() == DEF_NAME)
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "Media Item Name" << " : " << "No Name Set" << std::endl;
+		}
 		else if (MI.getName() != DEF_NAME)
 		{
 			out << std::left << std::setw(TEXT_WIDTH) << "Media Item" << " : " << MI.getName() << std::endl;

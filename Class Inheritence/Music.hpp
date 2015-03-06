@@ -20,13 +20,7 @@ private:
 	std::string Producer;
 	double minutes;
 
-
-	/*enum class Genre {
-		ROCK = 'roc', COUNTRY = 'cou', HIPHOP = 'hip', TECNO = 'tec', REGGAE = 'reg', OTHER, DEF
-	};*/
-	
 	Genre musicGenre;
-
 
 public:
 	Music();
@@ -39,13 +33,13 @@ public:
 
 	//Accessors
 	std::string getProducer();
-	double getRunTime();
+	virtual double getRunTime();
 	Music::Genre getGenre();
-	int toCout();
+	virtual int toCout();
 
 	//predicate
 	int in_mem();
-	int clear();
+	virtual int clear();
 	
 };
 

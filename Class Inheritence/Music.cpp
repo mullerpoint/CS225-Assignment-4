@@ -118,7 +118,8 @@ int Music::in_mem()
 //clear music object
 int Music::clear()
 {
-	Music::Music();
+	(*this) = Music::Music();
+	MediaItems::active = MediaItems::active - 2; //active is increased by two when calling the constructor
 	return 0;
 }
 
@@ -130,7 +131,10 @@ std::ostream& operator<<(std::ostream &out, Music &music)
 	else if (music.isEmpty() == false) //if not empty print data thats available
 	{
 		// display item name if present
-		if (music.getName() == DEF_NAME);
+		if (music.getName() == DEF_NAME)
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "Media Item Name" << " : " << "No Name Set" << std::endl;
+		}
 		else if (music.getName() != DEF_NAME)
 		{
 			out << std::left << std::setw(TEXT_WIDTH) << "Media Item" << " : " << music.getName() << std::endl;

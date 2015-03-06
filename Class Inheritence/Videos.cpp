@@ -117,7 +117,8 @@ int Videos::in_mem()
 
 int Videos::clear()
 {
-	Videos::Videos();
+	(*this) = Videos::Videos();
+	MediaItems::active = MediaItems::active - 2; //active is increased by two when calling the constructor
 	return 0;
 }
 
@@ -129,7 +130,10 @@ std::ostream& operator<<(std::ostream &out, Videos &Video)
 	else if (Video.isEmpty() == false) //if not empty print data thats available
 	{
 		// display item name if present
-		if (Video.getName() == DEF_NAME);
+		if (Video.getName() == DEF_NAME)
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << "Media Item Name" << " : " << "No Name Set" << std::endl;
+		}
 		else if (Video.getName() != DEF_NAME)
 		{
 			out << std::left << std::setw(TEXT_WIDTH) << "Media Item" << " : " << Video.getName() << std::endl;

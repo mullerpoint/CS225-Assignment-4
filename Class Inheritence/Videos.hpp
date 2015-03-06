@@ -17,22 +17,22 @@ private:
 
 public:
 	Videos();
-	~Videos();
+	virtual ~Videos();
 
 	//mutators
 	int setDirector(std::string);
-	int setRunTime(double);
+	virtual int setRunTime(double);
 	int setSequel(Videos*);
 	
 	//accessors
 	std::string getDirector();
 	double getRunTime();
-	Videos* getSequel();
-	int toCout();
+	virtual Videos* getSequel();
+	virtual int toCout();
 
 	//predicate
 	int in_mem();
-	int clear();
+	virtual int clear();
 };
 
 #endif

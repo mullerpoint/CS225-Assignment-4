@@ -19,7 +19,7 @@ private:
 	
 public:
 	Books();
-	~Books();
+	virtual ~Books();
 
 	//mutators
 	int setPages(int);
@@ -31,13 +31,13 @@ public:
 	int getPages();
 	bool getInPrint();
 	bool getInPrintDef();
-	Books* getSequel();
+	virtual Books* getSequel();
 	std::string getISBN();
-	int toCout();
+	virtual int toCout();
 
 	//predicate
 	int in_mem();
-	int clear();
+	virtual int clear();
 };
 
 #endif

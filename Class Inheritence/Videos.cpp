@@ -28,17 +28,15 @@
 #define DEF_PRICE 0.00
 #define DEF_PUB 1970
 #define ELEMENT_ZERO 0
-#define DEF_DIRECTOR ""
+#define DEF_DIRECTOR "aaaaaaaaaaaaaaaaaaaa"
 #define DEF_RUNTIME 0.0
 #define TEXT_WIDTH 20
 
 //Function prototype for insertion operator
 std::ostream& operator<<(std::ostream &out, Videos &Video);
 
-Videos::Videos()
+Videos::Videos() : MediaItems()
 {
-	MediaItems::MediaItems();
-
 	Videos::setDirector(DEF_DIRECTOR);
 	Videos::setRunTime(DEF_RUNTIME);
 	Videos::setSequel(NULL);
@@ -85,13 +83,13 @@ int Videos::setSequel(Videos* new_sequel)
 }
 
 //get director
-std::string Videos::getDirector()
+const std::string Videos::getDirector()
 {
 	return director;
 }
 
 //get run time
-double Videos::getRunTime()
+const double Videos::getRunTime()
 {
 	return runTime;
 }
@@ -102,22 +100,22 @@ Videos* Videos::getSequel()
 	return sequel_ptr;
 }
 
-int Videos::toCout()
+const int Videos::toCout()
 {
 	std::cout << (*this);
 	return 0;
 }
 
 //return the number of constructed items
-int Videos::in_mem()
+const int Videos::in_mem()
 {
 	return active;
 }
 
 int Videos::clear()
 {
-	(*this) = Videos::Videos();
-	Videos::active = Videos::active - 1; 
+	(*this) = Videos();
+	Videos::active = Videos::active - 1;
 	return 0;
 }
 
@@ -138,6 +136,13 @@ std::ostream& operator<<(std::ostream &out, Videos &Video)
 			out << std::left << std::setw(TEXT_WIDTH) << "Media Item" << " : " << Video.getName() << std::endl;
 		}
 
+		// print out the author object
+		if (Video.getAuthor() == NULL);
+		else
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << (*(Video.getAuthor()));
+		}
+
 		//display publication year if set; check if the value is default
 		if (Video.getPubYearDef() == true);
 		else if (Video.getPubYearDef() == false)
@@ -152,7 +157,7 @@ std::ostream& operator<<(std::ostream &out, Videos &Video)
 			out << std::left << std::setw(TEXT_WIDTH) << "  Price" << " : $" << std::fixed << Video.getPrice() << std::endl;
 		}
 
-				//display director if set
+		//display director if set
 		if (Video.getDirector() == DEF_DIRECTOR);
 		else
 		{

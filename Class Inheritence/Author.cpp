@@ -99,7 +99,7 @@ void Author::setName(std::string new_author)
 }
 
 //get the Author Name
-std::string Author::getName()
+const std::string Author::getName()
 {
 	return Author::name;
 }
@@ -124,7 +124,7 @@ int Author::in_mem()
 
 std::ostream& operator<<(std::ostream &out, Author &Auth)
 {
-	out << std::left << std::setw(TEXT_WIDTH) << "  Author" << " : " << Auth.name;
+	out << std::left << std::setw(TEXT_WIDTH) << "  Author" << " : " << Auth.getName();
 	return out;
 }
 

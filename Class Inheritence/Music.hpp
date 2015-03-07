@@ -12,7 +12,7 @@
 class Music :
 	public MediaItems
 {
-public :
+public:
 	enum class Genre {
 		ROC, COU, HIP, TEC, REG, OTHER, DEF
 	};
@@ -32,15 +32,15 @@ public:
 	int setGenre(Genre);
 
 	//Accessors
-	std::string getProducer();
-	virtual double getRunTime();
-	Music::Genre getGenre();
-	virtual int toCout();
+	const std::string getProducer();
+	const virtual double getRunTime();
+	const Music::Genre getGenre();
+	const virtual int toCout();
 
 	//predicate
-	int in_mem();
+	const int in_mem();
 	int clear();
-	
+
 };
 
 #endif

@@ -23,15 +23,15 @@ public:
 	int setDirector(std::string);
 	int setRunTime(double);
 	int setSequel(Videos*);
-	
+
 	//accessors
-	std::string getDirector();
-	double getRunTime();
+	const std::string getDirector();
+	const double getRunTime();
 	Videos* getSequel();
-	int toCout();
+	const int toCout();
 
 	//predicate
-	int in_mem();
+	const int in_mem();
 	int clear();
 };
 

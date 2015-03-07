@@ -30,17 +30,15 @@
 #define ELEMENT_ZERO 0
 #define DEF_PAGES 0
 #define DEF_PUB 1970
-#define DEF_ISBN ""
+#define DEF_ISBN "aaaaaaaaaaaaaaaaaaaa"
 #define TEXT_WIDTH 20
 
 //Function prototype for insertion operator
 std::ostream& operator<<(std::ostream &out, Books &Book);
 
 //constructor
-Books::Books()
+Books::Books() : MediaItems()
 {
-	MediaItems::MediaItems();
-
 	setPages(DEF_PAGES);
 
 	setInPrint(false);
@@ -50,8 +48,7 @@ Books::Books()
 
 	setISBN(DEF_ISBN);
 
-	Books::modified(false);
-	active++;
+	modified(false);
 }
 
 //destructor
@@ -99,31 +96,31 @@ int Books::setSequel(Books* new_sequel)
 int Books::setISBN(std::string new_isbn)
 {
 	Books::isbn = new_isbn;
-	Books::modified(true);
+	MediaItems::modified(true);
 	return 0;
 }
 
 //call overloaded print out function
-int Books::toCout()
+const int Books::toCout()
 {
 	std::cout << (*this);
 	return 0;
 }
 
 //get page count
-int Books::getPages()
+const int Books::getPages()
 {
 	return pages;
 }
 
 //get in print status
-bool Books::getInPrint()
+const bool Books::getInPrint()
 {
 	return in_print;
 }
 
 //get if in print is default
-bool Books::getInPrintDef()
+const bool Books::getInPrintDef()
 {
 	return in_print_def;
 }
@@ -135,13 +132,13 @@ Books* Books::getSequel()
 }
 
 //get the isbn number
-std::string Books::getISBN()
+const std::string Books::getISBN()
 {
 	return isbn;
 }
 
 //return the number of constructed items
-int Books::in_mem()
+const int Books::in_mem()
 {
 	return active;
 }
@@ -149,7 +146,7 @@ int Books::in_mem()
 //clear book
 int Books::clear()
 {
-	*this = Books::Books();
+	*this = Books();
 	Books::active = Books::active - 2; //active is increased by two when calling the constructor
 	return 0;
 }
@@ -169,6 +166,13 @@ std::ostream& operator<<(std::ostream &out, Books &Book)
 		else if (Book.getName() != DEF_NAME)
 		{
 			out << std::left << std::setw(TEXT_WIDTH) << "Media Item" << " : " << Book.getName() << std::endl;
+		}
+
+		// print out the author object
+		if (Book.getAuthor() == NULL);
+		else
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << (*(Book.getAuthor()));
 		}
 
 		//display publication year if set; check if the value is default
@@ -207,8 +211,8 @@ std::ostream& operator<<(std::ostream &out, Books &Book)
 		}
 
 		//display isbn
-		if (Book.getISBN() == "");
-		else if (Book.getISBN() != "")
+		if (Book.getISBN() == DEF_ISBN);
+		else if (Book.getISBN() != DEF_ISBN)
 		{
 			out << std::left << std::setw(TEXT_WIDTH) << "  ISBN" << " : " << Book.getISBN() << std::endl;
 		}

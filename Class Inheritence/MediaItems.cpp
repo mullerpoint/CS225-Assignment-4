@@ -129,52 +129,52 @@ int MediaItems::setAuthor(Author* new_author)
 }
 
 //print out item
-int MediaItems::toCout()
+const int MediaItems::toCout()
 {
 	std::cout << (*this);
 	return 0;
 }
 
 //get book title
-std::string MediaItems::getName()
+const std::string MediaItems::getName()
 {
-	return name;
+	return MediaItems::name;
 }
 
 //get pulication year
-int MediaItems::getPubYear()
+const int MediaItems::getPubYear()
 {
-	return pub_year;
+	return MediaItems::pub_year;
 }
 
 // get if the publication year is default
-bool MediaItems::getPubYearDef()
+const bool MediaItems::getPubYearDef()
 {
-	return pub_year_def;
+	return MediaItems::pub_year_def;
 }
 
 //get author pointer
 Author* MediaItems::getAuthor()
 {
-	return auth_ptr;
+	return MediaItems::auth_ptr;
 }
 
 //get price of item
-double MediaItems::getPrice()
+const double MediaItems::getPrice()
 {
-	return price;
+	return MediaItems::price;
 }
 
 //get the address of an elemtent in the array
 Elements* MediaItems::getElements(int elementNum)
 {
 	Elements* elem_addr = &element[elementNum];
-	
+
 	return elem_addr;
 }
 
 //returns if the item is empty
-bool MediaItems::isEmpty()
+const bool MediaItems::isEmpty()
 {
 	return !(hasData);
 }
@@ -187,12 +187,12 @@ int MediaItems::modified(bool data)
 }
 
 //return the number of constructed items
-int MediaItems::in_mem()
+const int MediaItems::in_mem()
 {
 	return active;
 }
 
-int MediaItems::clear() 
+int MediaItems::clear()
 {
 	(*this) = MediaItems();
 	MediaItems::active = MediaItems::active - 1; //active is increased when calling the constructor
@@ -213,6 +213,13 @@ std::ostream& operator<<(std::ostream &out, MediaItems &MI)
 		else if (MI.getName() != DEF_NAME)
 		{
 			out << std::left << std::setw(TEXT_WIDTH) << "Media Item" << " : " << MI.getName() << std::endl;
+		}
+
+		// print out the author object
+		if (MI.getAuthor() == NULL);
+		else
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << (*MI.getAuthor());
 		}
 
 		//display publication year if set; check if the value is default

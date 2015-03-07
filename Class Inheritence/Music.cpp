@@ -28,7 +28,7 @@
 #define DEF_PRICE 0.00
 #define DEF_PUB 1970
 #define ELEMENT_ZERO 0
-#define DEF_PRODUCER " "
+#define DEF_PRODUCER "aaaaaaaaaaaaaaaaaaaa"
 #define DEF_MIN 0.0
 #define DEF_GENRE Genre::DEF
 #define TEXT_WIDTH 20
@@ -38,14 +38,12 @@ std::ostream& operator<<(std::ostream &out, Music &music);
 
 Music::Music() : MediaItems()
 {
-	/*MediaItems::MediaItems();*/
 
 	Music::setProducer(DEF_PRODUCER);
 	Music::setRunTime(DEF_MIN);
 	//Music::setGenre(DEF_GENRE);
 
 	Music::modified(false);
-	active++;
 }
 
 
@@ -65,7 +63,7 @@ int Music::setProducer(std::string new_producer)
 //set time of music
 int Music::setRunTime(double new_Minutes)
 {
-	if (new_Minutes >=0)
+	if (new_Minutes >= 0)
 	{
 		Music::minutes = new_Minutes;
 		Music::modified(true);
@@ -86,31 +84,31 @@ int Music::setGenre(Genre new_genre)
 }
 
 //get the producer name
-std::string Music::getProducer()
+const std::string Music::getProducer()
 {
 	return Producer;
 }
 
 //get the music time
-double Music::getRunTime()
+const double Music::getRunTime()
 {
 	return minutes;
 }
 
 //get music genre
-Music::Genre Music::getGenre()
+const Music::Genre Music::getGenre()
 {
 	return musicGenre;
 }
 
-int Music::toCout()
+const int Music::toCout()
 {
 	std::cout << (*this);
 	return 0;
 }
 
 //return the number of constructed items
-int Music::in_mem()
+const int Music::in_mem()
 {
 	return active;
 }
@@ -138,6 +136,13 @@ std::ostream& operator<<(std::ostream &out, Music &music)
 		else if (music.getName() != DEF_NAME)
 		{
 			out << std::left << std::setw(TEXT_WIDTH) << "Media Item" << " : " << music.getName() << std::endl;
+		}
+
+		// print out the author object
+		if (music.getAuthor() == NULL);
+		else
+		{
+			out << std::left << std::setw(TEXT_WIDTH) << (*(music.getAuthor()));
 		}
 
 		//display publication year if set; check if the value is default
@@ -172,7 +177,7 @@ std::ostream& operator<<(std::ostream &out, Music &music)
 		/*if (music.getGenre == 'Def');
 		else
 		{
-			out << std::left << std::setw(TEXT_WIDTH) << "  Genre" << " : " << music.getGenre() << std::endl;
+		out << std::left << std::setw(TEXT_WIDTH) << "  Genre" << " : " << music.getGenre() << std::endl;
 		}*/
 
 		//display elements if they exist; 

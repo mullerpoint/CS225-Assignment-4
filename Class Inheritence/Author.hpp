@@ -19,7 +19,7 @@ private:
 public:
 	Author();
 	~Author();
-	std::string getName();
+	const std::string getName();
 	void setBirth(int);
 	void setDeath(int);
 	void setName(std::string);

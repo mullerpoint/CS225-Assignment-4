@@ -43,18 +43,18 @@ public:
 	int setAuthor(Author*);
 
 	//Accessors
-	std::string getName();
-	int getPubYear();
-	bool getPubYearDef();
+	const std::string getName();
+	const int getPubYear();
+	const bool getPubYearDef();
 	Author* getAuthor();
-	double getPrice();
-	Elements* getElements(int=0);
-	virtual int toCout();
+	const double getPrice();
+	Elements* getElements(int = 0);
+	const virtual int toCout();
 
 	//Predicate Functions
-	virtual bool isEmpty();
+	const virtual bool isEmpty();
 	virtual int modified(bool);
-	int in_mem();
+	const int in_mem();
 	virtual int clear();
 };
 

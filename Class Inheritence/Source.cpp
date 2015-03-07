@@ -252,12 +252,12 @@ void process_menu_in(char inchar)
 			std::cin >> runTime;
 			if (typeid(*mixed_array[ItemNum]) == typeid(Music))
 			{
-				Music* music_ptr = (Music*)&mixed_array[ItemNum];
+				Music* music_ptr = (Music*)mixed_array[ItemNum];
 				(*music_ptr).setRunTime(runTime);
 			}
 			else
 			{
-				Videos* video_ptr = (Videos*)&mixed_array[ItemNum];
+				Videos* video_ptr = (Videos*)mixed_array[ItemNum];
 				(*video_ptr).setRunTime(runTime);
 			}
 
@@ -361,12 +361,12 @@ void process_menu_in(char inchar)
 
 			if (typeid(*mixed_array[ItemNum]) == typeid(Music))
 			{
-				Music* music_ptr = (Music*)&mixed_array[ItemNum];
+				Music* music_ptr = (Music*)mixed_array[ItemNum];
 				(*music_ptr).setProducer(executive);
 			}
 			else
 			{
-				Videos* video_ptr = (Videos*)&mixed_array[ItemNum];
+				Videos* video_ptr = (Videos*)mixed_array[ItemNum];
 				(*video_ptr).setDirector(executive);
 			}
 		}
@@ -382,7 +382,7 @@ void process_menu_in(char inchar)
 	{
 		if (typeid(*mixed_array[ItemNum]) == typeid(Books))
 		{
-			Books* book_ptr = (Books*)&mixed_array[ItemNum];
+			Books* book_ptr = (Books*)mixed_array[ItemNum];
 
 			bool printStatus;
 			std::cout << "Is the book still in print (0/1) : ";
@@ -398,12 +398,12 @@ void process_menu_in(char inchar)
 	{
 		if (typeid(*mixed_array[ItemNum]) == typeid(Books))
 		{
-			Books* book_ptr = (Books*)&mixed_array[ItemNum];
+			Books* book_ptr = (Books*)mixed_array[ItemNum];
 
 			std::string isbn;
 			std::cout << "Please enter the Book ISBN :";
 			std::getline(std::cin, isbn);
-			(*((Books*)(&mixed_array[ItemNum]))).setISBN(isbn);
+			(*book_ptr).setISBN(isbn);
 		}
 		else
 		{
@@ -432,7 +432,7 @@ void process_menu_in(char inchar)
 				{
 				if (typeid(*mixed_array[count]) == typeid(Music))
 				{
-				Music* music_ptr = (Music*)&mixed_array[count];
+				Music* music_ptr = (Music*)mixed_array[count];
 				if ((*music_ptr).getGenre == genre)
 				{
 				std::cout << std::endl << "Item [" << count << "]" << std::endl;
@@ -465,7 +465,7 @@ void process_menu_in(char inchar)
 	{
 		if (typeid((*mixed_array[ItemNum])) == typeid(Books))
 		{
-			Books* book_ptr = (Books*)&mixed_array[ItemNum];
+			Books* book_ptr = (Books*)mixed_array[ItemNum];
 
 			int new_pages;
 			std::cout << "Enter Media Item Pages : ";
@@ -507,15 +507,15 @@ void process_menu_in(char inchar)
 
 		if (typeid(*mixed_array[ItemNum]) == typeid(Books))
 		{
-			Books* book_ptr = (Books*)&mixed_array[ItemNum];
-			Books* sql_ptr = (Books*)&mixed_array[temp_num];
+			Books* book_ptr = (Books*)mixed_array[ItemNum];
+			Books* sql_ptr = (Books*)mixed_array[temp_num];
 
 			(*book_ptr).setSequel(sql_ptr);
 		}
 		else
 		{
-			Videos* video_ptr = (Videos*)&mixed_array[ItemNum];
-			Videos* sql_ptr = (Videos*)&mixed_array[temp_num];
+			Videos* video_ptr = (Videos*)mixed_array[ItemNum];
+			Videos* sql_ptr = (Videos*)mixed_array[temp_num];
 
 			(*video_ptr).setSequel(sql_ptr);
 		}

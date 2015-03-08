@@ -435,7 +435,7 @@ void process_menu_in(char inchar)
 			bool genreSet = false;
 
 			//variable to keep track of type
-			Music::Genre type = Music::Genre::ROC;
+			Music::Genre type = Music::Genre::COU;
 
 			//for loop to try find a match to one of the defined genres
 			while ((type < Music::Genre::OTHER) && (genreSet = false))

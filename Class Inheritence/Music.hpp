@@ -16,7 +16,6 @@ public:
 	enum Genre {
 		UDEF, ROC, COU, HIP, TEC, REG, OTHER
 	};
-	void getGenre(Genre test);
 
 private:
 	std::string Producer;

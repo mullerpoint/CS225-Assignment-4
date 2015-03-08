@@ -50,7 +50,7 @@ clean :
 # $^ expands to the rule's dependencies, in this case the three files
 # main.o, test1.o, and  test2.o.
 $(LINK_TARGET) : $(OBJS)
-	/opt/rh/devtoolset-1.1/root/usr/bin/g++ -g -o $@ $^
+	/opt/rh/devtoolset-1.1/root/usr/bin/g++ -g -std=c++11 -o $@ $^
 
 # Here is a Pattern Rule, often used for compile-line.
 # It says how to create a file with a .o suffix, given a file with a .cpp suffix.
@@ -58,7 +58,7 @@ $(LINK_TARGET) : $(OBJS)
 # $@ for the pattern-matched target
 # $< for the pattern-matched dependency
 %.o : %.cpp
-	/opt/rh/devtoolset-1.1/root/usr/bin/g++ -g -o $@ -c $<
+	/opt/rh/devtoolset-1.1/root/usr/bin/g++ -g -std=c++11 -o $@ -c $<
 
 # These are Dependency Rules, which are rules without any command.
 # Dependency Rules indicate that if any file to the right of the colon changes,

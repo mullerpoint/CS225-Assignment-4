@@ -124,7 +124,7 @@ int Author::in_mem()
 
 std::ostream& operator<<(std::ostream &out, Author &Auth)
 {
-	out << std::left << std::setw(TEXT_WIDTH) << "  Author" << " : " << Auth.getName();
+	out << std::left << std::setw(TEXT_WIDTH) << "  Author" << " : " << Auth.getName() <<std:: endl;
 	return out;
 }
 

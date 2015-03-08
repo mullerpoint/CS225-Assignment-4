@@ -13,9 +13,11 @@ class Music :
 	public MediaItems
 {
 public:
-	enum class Genre {
-		ROC, COU, HIP, TEC, REG, OTHER, DEF
+	enum Genre {
+		UDEF, ROC, COU, HIP, TEC, REG, OTHER
 	};
+	void getGenre(Genre test);
+
 private:
 	std::string Producer;
 	double minutes;
@@ -35,6 +37,8 @@ public:
 	const std::string getProducer();
 	const virtual double getRunTime();
 	const Music::Genre getGenre();
+	std::string dispGenre(Music::Genre = Music::Genre::OTHER); // returns a string for outputting the genre 
+	std::string dispGenreSht(Music::Genre = Music::Genre::OTHER); // returns a short string for searching the tokens
 	const virtual int toCout();
 
 	//predicate

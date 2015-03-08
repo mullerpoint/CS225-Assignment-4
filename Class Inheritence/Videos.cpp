@@ -28,7 +28,7 @@
 #define DEF_PRICE 0.00
 #define DEF_PUB 1970
 #define ELEMENT_ZERO 0
-#define DEF_DIRECTOR "aaaaaaaaaaaaaaaaaaaa"
+#define DEF_DIRECTOR ""
 #define DEF_RUNTIME 0.0
 #define TEXT_WIDTH 20
 

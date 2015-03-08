@@ -15,7 +15,7 @@
 #include <io.h> // isatty for windows
 //#include <unistd.h> // isatty  for linux
 #include <iomanip> // included to make pretty output
-#include <typeinfo>
+#include <typeinfo> //included to use typeid()
 #endif
 
 //User Defined Class Includes
@@ -361,12 +361,16 @@ void process_menu_in(char inchar)
 
 			if (typeid(*mixed_array[ItemNum]) == typeid(Music))
 			{
+				//create a simple variable that points to cast version of the object
 				Music* music_ptr = (Music*)mixed_array[ItemNum];
+				//set the producer
 				(*music_ptr).setProducer(executive);
 			}
 			else
 			{
+				//create a simple variable that points to cast version of the object
 				Videos* video_ptr = (Videos*)mixed_array[ItemNum];
+				//set the director
 				(*video_ptr).setDirector(executive);
 			}
 		}
@@ -382,6 +386,7 @@ void process_menu_in(char inchar)
 	{
 		if (typeid(*mixed_array[ItemNum]) == typeid(Books))
 		{
+			//create a simple variable that points to cast version of the object
 			Books* book_ptr = (Books*)mixed_array[ItemNum];
 
 			bool printStatus;
@@ -398,6 +403,7 @@ void process_menu_in(char inchar)
 	{
 		if (typeid(*mixed_array[ItemNum]) == typeid(Books))
 		{
+			//create a simple variable that points to cast version of the object
 			Books* book_ptr = (Books*)mixed_array[ItemNum];
 
 			std::string isbn;
@@ -415,34 +421,96 @@ void process_menu_in(char inchar)
 	//set Music genre
 	case 'K':
 	{
-		std::cout << "This has not yet been implemented, case K";
-		std::cin.ignore(10000, '/n');
-	}
+		if (typeid(*mixed_array[ItemNum]) == typeid(Music))
+		{
+			//create a simple variable that points to cast version of the object
+			Music* music_ptr = (Music*)mixed_array[ItemNum];
+
+			//get the genre string from input
+			std::string genreStr;
+			std::cout << "Please enter the Genre : ";
+			std::getline(std::cin, genreStr);
+
+			//create a bool variable to determine if the genre has been set
+			bool genreSet = false;
+
+			//variable to keep track of type
+			Music::Genre type = Music::Genre::ROC;
+
+			//for loop to try find a match to one of the defined genres
+			while ((type < Music::Genre::OTHER) && (genreSet = false))
+			{
+				//get the token for searching the genre string
+				std::string typeStr = (*music_ptr).dispGenreSht(type);
+
+				//if the token matches something the genre string set the object to the genre
+				if (genreStr.find(typeStr) != std::string::npos)
+				{
+					(*music_ptr).setGenre(type);
+					genreSet = true;
+				} //if genreStr
+				Music::Genre(type + 1);
+			}//while
+		} //if type id
+	}//case
 	break;
 
 	//List Music by genre
 	case 'L':
 	{
-		std::cout << "This has not yet been implemented, case L";
-		std::cin.ignore(10000, '/n');
-		/*
-				int count;
-				Music::Genre genre;
+		int count = 0;
+		int numPrinted = 0;
+		bool found = false;
+		Music* firstMusicObj = NULL;
+
+		//determine if their are any music objects and save the location of the first one 
+		while ((count < OBJS_MI) && (found == false))
+		{
+			if (typeid(*mixed_array[count]) == typeid(Music))
+			{
+				found = true;
+				firstMusicObj = (Music*)mixed_array[count];
+			}
+		}
+
+		//if a music was not found tell the user
+		if (found == false)
+		{
+			std::cout << "There are no Music items to sort" << std::endl;
+		}
+		// if a music was found print out 
+		else if (found == true)
+		{
+			for (Music::Genre type = Music::Genre::UDEF; type < Music::Genre::OTHER; Music::Genre(type + 1))
+			{
+				std::cout << "===== Genre : " << (*firstMusicObj).dispGenre(type) << " =====" << std::endl;
+				count = 0;
+				numPrinted = 0;
 				while (count < OBJS_MI)
 				{
-				if (typeid(*mixed_array[count]) == typeid(Music))
+					if (typeid(*mixed_array[count]) == typeid(Music))
+					{
+						Music* music_ptr = (Music*)mixed_array[count];
+						if ((*music_ptr).dispGenreSht((*music_ptr).getGenre()) == (*music_ptr).dispGenreSht(type))
+						//comparing strings to allow comparison, enums refused to compile
+						{
+							std::cout << std::endl << "Item [" << count << "]" << std::endl;
+							(*mixed_array[count]).toCout();
+							numPrinted++;
+						} //if genre
+					} //if type id
+					count++;
+				}//while
+
+				// if there were no songs of that genre print that out
+				if (numPrinted == 0)
 				{
-				Music* music_ptr = (Music*)mixed_array[count];
-				if ((*music_ptr).getGenre == genre)
-				{
-				std::cout << std::endl << "Item [" << count << "]" << std::endl;
-				(*mixed_array[count]).toCout();
-				}
-				}
-				count++;
-				}
-				*/
-	}
+					std::cout << "No Songs Found" << std::endl;
+				} //if numPrinted
+
+			} //for
+		} //else if
+	}//case
 	break;
 
 	// display menu again menu option

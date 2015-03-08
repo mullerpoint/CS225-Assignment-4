@@ -30,7 +30,7 @@
 #define ELEMENT_ZERO 0
 #define DEF_PAGES 0
 #define DEF_PUB 1970
-#define DEF_ISBN "aaaaaaaaaaaaaaaaaaaa"
+#define DEF_ISBN ""
 #define TEXT_WIDTH 20
 
 //Function prototype for insertion operator

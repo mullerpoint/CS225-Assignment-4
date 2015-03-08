@@ -28,9 +28,9 @@
 #define DEF_PRICE 0.00
 #define DEF_PUB 1970
 #define ELEMENT_ZERO 0
-#define DEF_PRODUCER "aaaaaaaaaaaaaaaaaaaa"
+#define DEF_PRODUCER ""
 #define DEF_MIN 0.0
-#define DEF_GENRE Genre::DEF
+#define DEF_GENRE Music::Genre::UDEF
 #define TEXT_WIDTH 20
 
 //Function prototype for insertion operator
@@ -41,7 +41,7 @@ Music::Music() : MediaItems()
 
 	Music::setProducer(DEF_PRODUCER);
 	Music::setRunTime(DEF_MIN);
-	//Music::setGenre(DEF_GENRE);
+	Music::setGenre(DEF_GENRE);
 
 	Music::modified(false);
 }
@@ -101,6 +101,65 @@ const Music::Genre Music::getGenre()
 	return musicGenre;
 }
 
+std::string Music::dispGenre(Music::Genre type)
+{
+	switch (type)
+	{
+	case Music::Genre::UDEF:
+		return "Undefinded";
+		break;
+	case Music::Genre::ROC:
+		return "Rock";
+		break;
+	case Music::Genre::COU:
+		return "Country";
+		break;
+	case Music::Genre::HIP:
+		return "HipHop";
+		break;
+	case Music::Genre::TEC:
+		return "Techno";
+		break;
+	case Music::Genre::REG:
+		return  "Reggie";
+		break;
+	case Music::Genre::OTHER:
+		return "Other";
+		break;
+	default:
+		return "Error : Unrecognized Genre Type";
+		break;
+	}
+}
+
+std::string Music::dispGenreSht(Music::Genre type)
+{
+	switch (type)
+	{
+	case Music::Genre::ROC:
+		return "ROC";
+		break;
+	case Music::Genre::COU:
+		return "COU";
+		break;
+	case Music::Genre::HIP:
+		return "HIP";
+		break;
+	case Music::Genre::TEC:
+		return "TEC";
+		break;
+	case Music::Genre::REG:
+		return  "REG";
+		break;
+	case Music::Genre::OTHER:
+		return "";
+		break;
+	default:
+		return "Error : Unrecognized Genre Type";
+		break;
+	}
+}
+
 const int Music::toCout()
 {
 	std::cout << (*this);
@@ -117,7 +176,7 @@ const int Music::in_mem()
 int Music::clear()
 {
 	(*this) = Music();
-	Music::active = Music::active - 2; //active is increased by two when calling the constructor
+	Music::active = Music::active - 1;
 	return 0;
 }
 
@@ -174,11 +233,12 @@ std::ostream& operator<<(std::ostream &out, Music &music)
 		}
 
 		//Display genre
-		/*if (music.getGenre == 'Def');
+		//comparing strings to allow comparison, enums refused to compile
+		if (music.dispGenreSht(music.getGenre()) == music.dispGenreSht(Music::Genre::UDEF));
 		else
 		{
-		out << std::left << std::setw(TEXT_WIDTH) << "  Genre" << " : " << music.getGenre() << std::endl;
-		}*/
+		out << std::left << std::setw(TEXT_WIDTH) << "  Genre" << " : " << music.dispGenre(music.getGenre()) << std::endl;
+		}
 
 		//display elements if they exist; 
 		if ((*music.getElements(0)).isEmpty() == true);

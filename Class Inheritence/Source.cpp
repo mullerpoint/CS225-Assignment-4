@@ -430,6 +430,7 @@ void process_menu_in(char inchar)
 			std::string genreStr;
 			std::cout << "Please enter the Genre : ";
 			std::getline(std::cin, genreStr);
+			for (auto & c : genreStr) c = toupper(c); //convert to uppercase
 
 			//create a bool variable to determine if the genre has been set
 			bool genreSet = false;
@@ -438,7 +439,7 @@ void process_menu_in(char inchar)
 			Music::Genre type = Music::Genre::COU;
 
 			//for loop to try find a match to one of the defined genres
-			while ((type < Music::Genre::OTHER) && (genreSet = false))
+			while ((type != Music::Genre::OTHER) && (genreSet == false))
 			{
 				//get the token for searching the genre string
 				std::string typeStr = (*music_ptr).dispGenreSht(type);
@@ -449,7 +450,7 @@ void process_menu_in(char inchar)
 					(*music_ptr).setGenre(type);
 					genreSet = true;
 				} //if genreStr
-				Music::Genre(type + 1);
+				type = Music::Genre(type + 1);
 			}//while
 		} //if type id
 	}//case
@@ -482,7 +483,8 @@ void process_menu_in(char inchar)
 		// if a music was found print out 
 		else if (found == true)
 		{
-			for (Music::Genre type = Music::Genre::UDEF; type < Music::Genre::OTHER; Music::Genre(type + 1))
+			Music::Genre type = Music::Genre::ROC;
+			while (type < Music::Genre::OTHER)
 			{
 				std::cout << "===== Genre : " << (*firstMusicObj).dispGenre(type) << " =====" << std::endl;
 				count = 0;
@@ -495,9 +497,12 @@ void process_menu_in(char inchar)
 						if ((*music_ptr).dispGenreSht((*music_ptr).getGenre()) == (*music_ptr).dispGenreSht(type))
 						//comparing strings to allow comparison, enums refused to compile
 						{
-							std::cout << std::endl << "Item [" << count << "]" << std::endl;
-							(*mixed_array[count]).toCout();
-							numPrinted++;
+							if ((*music_ptr).isEmpty())
+							{
+								std::cout << std::endl << "Item [" << count << "]" << std::endl;
+								(*mixed_array[count]).toCout();
+								numPrinted++;
+							} //if isEmpty
 						} //if genre
 					} //if type id
 					count++;
@@ -509,6 +514,7 @@ void process_menu_in(char inchar)
 					std::cout << "No Songs Found" << std::endl;
 				} //if numPrinted
 
+				type = Music::Genre(type + 1);
 			} //for
 		} //else if
 	}//case

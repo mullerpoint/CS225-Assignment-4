@@ -471,6 +471,7 @@ void process_menu_in(char inchar)
 				found = true;
 				firstMusicObj = (Music*)mixed_array[count];
 			}
+			count++;
 		}
 
 		//if a music was not found tell the user

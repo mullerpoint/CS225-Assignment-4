@@ -80,6 +80,7 @@ int Music::setRunTime(double new_Minutes)
 int Music::setGenre(Genre new_genre)
 {
 	Music::musicGenre = new_genre;
+	Music::modified(true);
 	return 0;
 }
 

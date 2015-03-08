@@ -452,6 +452,10 @@ void process_menu_in(char inchar)
 				} //if genreStr
 				type = Music::Genre(type + 1);
 			}//while
+			if (genreSet == false)
+			{
+				(*music_ptr).setGenre(Music::Genre::OTHER);
+			}
 		} //if type id
 	}//case
 	break;
@@ -467,7 +471,7 @@ void process_menu_in(char inchar)
 		//determine if their are any music objects and save the location of the first one 
 		while ((count < OBJS_MI) && (found == false))
 		{
-			if (typeid(*mixed_array[count]) == typeid(Music))
+			if (typeid(*(mixed_array[count])) == typeid(Music))
 			{
 				found = true;
 				firstMusicObj = (Music*)mixed_array[count];
@@ -484,9 +488,9 @@ void process_menu_in(char inchar)
 		else if (found == true)
 		{
 			Music::Genre type = Music::Genre::ROC;
-			while (type < Music::Genre::OTHER)
+			while (type != Music::Genre::OTHER)
 			{
-				std::cout << "===== Genre : " << (*firstMusicObj).dispGenre(type) << " =====" << std::endl;
+				std::cout << std::endl << "===== Genre : " << (*firstMusicObj).dispGenre(type) << " =====" << std::endl;
 				count = 0;
 				numPrinted = 0;
 				while (count < OBJS_MI)
@@ -497,7 +501,7 @@ void process_menu_in(char inchar)
 						if ((*music_ptr).dispGenreSht((*music_ptr).getGenre()) == (*music_ptr).dispGenreSht(type))
 						//comparing strings to allow comparison, enums refused to compile
 						{
-							if ((*music_ptr).isEmpty())
+							if (!((*music_ptr).isEmpty()))
 							{
 								std::cout << std::endl << "Item [" << count << "]" << std::endl;
 								(*mixed_array[count]).toCout();

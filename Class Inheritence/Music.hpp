@@ -14,7 +14,7 @@ class Music :
 {
 public:
 	enum Genre {
-		UDEF, ROC, COU, HIP, TEC, REG, OTHER
+		ROC, COU, HIP, TEC, REG, OTHER, UDEF, END
 	};
 
 private:
@@ -28,9 +28,9 @@ public:
 	~Music();
 
 	//mutators
-	int setProducer(std::string);
+	virtual int setExecutive(std::string);
 	int setRunTime(double);
-	int setGenre(Genre);
+	int setGenre(Genre UDEF);
 
 	//Accessors
 	const std::string getProducer();

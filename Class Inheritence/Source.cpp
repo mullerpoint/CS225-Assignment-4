@@ -359,19 +359,20 @@ void process_menu_in(char inchar)
 			std::cout << "Please enter the Producer or Director : ";
 			std::getline(std::cin, executive);
 
+
 			if (typeid(*mixed_array[ItemNum]) == typeid(Music))
 			{
 				//create a simple variable that points to cast version of the object
 				Music* music_ptr = (Music*)mixed_array[ItemNum];
 				//set the producer
-				(*music_ptr).setProducer(executive);
+				(*music_ptr).setExecutive(executive);
 			}
 			else
 			{
 				//create a simple variable that points to cast version of the object
 				Videos* video_ptr = (Videos*)mixed_array[ItemNum];
 				//set the director
-				(*video_ptr).setDirector(executive);
+				(*video_ptr).setExecutive(executive);
 			}
 		}
 		else
@@ -436,15 +437,15 @@ void process_menu_in(char inchar)
 			bool genreSet = false;
 
 			//variable to keep track of type
-			Music::Genre type = Music::Genre::COU;
+			Music::Genre type = Music::Genre::ROC;
 
 			//for loop to try find a match to one of the defined genres
-			while ((type != Music::Genre::OTHER) && (genreSet == false))
+			while ((type != Music::Genre::END) && (genreSet == false))
 			{
 				//get the token for searching the genre string
 				std::string typeStr = (*music_ptr).dispGenreSht(type);
 
-				//if the token matches something the genre string set the object to the genre
+				//if the token matches something in the genre string set the object to the genre
 				if (genreStr.find(typeStr) != std::string::npos)
 				{
 					(*music_ptr).setGenre(type);
@@ -488,7 +489,7 @@ void process_menu_in(char inchar)
 		else if (found == true)
 		{
 			Music::Genre type = Music::Genre::ROC;
-			while (type != Music::Genre::OTHER)
+			while (type != Music::Genre::END)
 			{
 				std::cout << std::endl << "===== Genre : " << (*firstMusicObj).dispGenre(type) << " =====" << std::endl;
 				count = 0;
@@ -519,8 +520,9 @@ void process_menu_in(char inchar)
 				} //if numPrinted
 
 				type = Music::Genre(type + 1);
-			} //for
+			} //while
 		} //else if
+
 	}//case
 	break;
 

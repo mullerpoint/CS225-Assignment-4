@@ -37,7 +37,7 @@ std::ostream& operator<<(std::ostream &out, Videos &Video);
 
 Videos::Videos() : MediaItems()
 {
-	Videos::setDirector(DEF_DIRECTOR);
+	Videos::setExecutive(DEF_DIRECTOR);
 	Videos::setRunTime(DEF_RUNTIME);
 	Videos::setSequel(NULL);
 
@@ -51,7 +51,7 @@ Videos::~Videos()
 }
 
 //Set video Director
-int Videos::setDirector(std::string new_Director)
+int Videos::setExecutive(std::string new_Director)
 {
 	Videos::director = new_Director;
 	Videos::modified(true);

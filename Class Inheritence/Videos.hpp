@@ -20,7 +20,7 @@ public:
 	virtual ~Videos();
 
 	//mutators
-	int setDirector(std::string);
+	virtual int setExecutive(std::string);
 	int setRunTime(double);
 	int setSequel(Videos*);
 

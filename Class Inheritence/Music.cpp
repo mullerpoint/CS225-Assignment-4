@@ -39,7 +39,7 @@ std::ostream& operator<<(std::ostream &out, Music &music);
 Music::Music() : MediaItems()
 {
 
-	Music::setProducer(DEF_PRODUCER);
+	Music::setExecutive(DEF_PRODUCER);
 	Music::setRunTime(DEF_MIN);
 	Music::setGenre(DEF_GENRE);
 
@@ -53,7 +53,7 @@ Music::~Music()
 }
 
 //Set video Director
-int Music::setProducer(std::string new_producer)
+int Music::setExecutive(std::string new_producer)
 {
 	Music::Producer = new_producer;
 	Music::modified(true);
